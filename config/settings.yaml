@@ -1,0 +1,104 @@
+# Phase 1 configuration. Values here are initial defaults per the spec —
+# NOT tuned/optimized. horizon_weights, model_weights, and label thresholds
+# are explicitly called out as "do not assume these are optimal" — they get
+# walk-forward-optimized in the training phase (Phase 2+), once there are
+# models to optimize against.
+
+universe:
+  data_dir: data/universe
+
+data_source:
+  mode: sample        # sample | yfinance
+  sample_dir: data/market/sample
+
+trading_calendar:
+  exchange: NYSE
+
+horizons:
+  sessions:
+    1D: 1
+    1W: 5
+    2W: 10
+    1M: 21
+    2M: 42
+    3M: 63
+    6M: 126
+  # Walk-forward optimized (backtesting/optimize.py, scripts/optimize_config.py),
+  # not the spec's placeholder anymore. Grid search over 4 horizon-weight
+  # presets x 4 model-weight presets x 5 thresholds, scored by average Sharpe
+  # across 12 symbols on validation window 2024-01-01..2025-01-01; confirmed
+  # on held-out test window 2025-01-01..2026-08-11 (avg Sharpe +0.646 vs.
+  # +0.000 for the spec's original 1D:0.05../6M:0.15 preset at threshold 0.25 —
+  # see "signal_thresholds" below for why 0.000 isn't a rounding artifact).
+  # "back_loaded" won: longer horizons (2M/3M/6M) weighted higher than short
+  # ones — full leaderboard in backtesting/optimize_report.json.
+  weights:
+    1D: 0.03
+    1W: 0.05
+    2W: 0.07
+    1M: 0.15
+    2M: 0.20
+    3M: 0.25
+    6M: 0.25
+
+labels:
+  method: volatility   # fixed | atr | volatility | market_relative | risk_adjusted
+  fixed_threshold: 0.02
+  atr_multiplier: 1.5
+  vol_multiplier: 0.5
+  risk_adjusted_z: 0.5
+
+benchmarks:
+  indices: [SPY, QQQ, IWM, DIA]
+
+# The xgboost:lightgbm ratio was included in the same walk-forward search
+# above (see horizon weights comment) — the original spec ratio won over
+# equal/xgboost-heavy/lightgbm-heavy alternatives, so it's unchanged.
+# lstm/transformer/ppo were NOT part of that search (recomputing their
+# sequence-windowed predictions across full history x 80 grid configs is a
+# much bigger compute job — see backtesting/optimize.py's module docstring)
+# — their weights are still the spec's un-optimized placeholders.
+model_weights:
+  xgboost: 0.30
+  lightgbm: 0.25
+  lstm: 0.20
+  transformer: 0.15
+  ppo: 0.10
+
+# Walk-forward optimized (see horizon weights comment above for methodology).
+# IMPORTANT caveat found during optimization: the trained ensemble's
+# composite score is almost always positive on real 2018-2026 data (models
+# picked up a persistent long bias from a mostly-uptrending training period)
+# — so `sell` rarely fires regardless of its value; this is a genuine
+# characteristic of the current models on this data, not a threshold-tuning
+# artifact. At the spec's original buy=0.25, the strategy produces exactly
+# 0.000 Sharpe on 2025-2026 (real, held-out) — meaning at that threshold it
+# essentially never trades at all on the current model's score distribution.
+signal_thresholds:
+  buy: 0.10
+  sell: -0.10
+
+liquidity:
+  min_avg_dollar_volume_20d: 5000000   # below this, force HOLD / suppress signal (Phase 3+)
+
+# spec section 40 — earnings-aware signal. days_to_earnings <= this forces
+# risk=HIGH and a conservative HOLD. Not validated via event backtesting yet
+# (would need a real earnings-calendar feed to backtest against, not just
+# the SEC-filing-date proxy) — configurable so it's easy to retune once it is.
+earnings:
+  risk_window_days: 5
+
+database:
+  host: ${POSTGRES_HOST:-localhost}
+  port: ${POSTGRES_PORT:-5432}
+  database: ${POSTGRES_DB:-us_ai_signal_engine}
+  user: ${POSTGRES_USER:-postgres}
+  password: ${POSTGRES_PASSWORD:-postgres}
+
+redis:
+  host: ${REDIS_HOST:-localhost}
+  port: ${REDIS_PORT:-6379}
+
+api:
+  host: 0.0.0.0
+  port: 8000

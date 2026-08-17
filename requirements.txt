@@ -1,0 +1,34 @@
+# ── Phase 1 ───────────────────────────────────────────────────────────────────
+pandas>=2.1
+numpy<2               # pinned <2: the CPU-only torch build available for
+                       # Intel macOS (2.2.2, the last version published for
+                       # that platform) needs the NumPy 1.x ABI. Drop this
+                       # pin if you're on a platform with newer torch wheels.
+scipy<1.14             # matching numpy<2 (scipy>=1.14 requires numpy>=2)
+PyYAML>=6.0
+python-dotenv>=1.0
+SQLAlchemy>=2.0
+psycopg2-binary>=2.9
+redis>=5.0
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pytest>=8.0
+
+# ── Phase 2/3: models + ensemble ────────────────────────────────────────────────
+scikit-learn>=1.4
+joblib>=1.3           # stacking meta-model persistence (signals/stacking.py) — already a scikit-learn transitive dep, pinned directly since we import it ourselves now
+xgboost>=2.0
+lightgbm>=4.3
+torch>=2.2
+
+# ── Phase 7: production ─────────────────────────────────────────────────────────
+mlflow>=2.12
+celery>=5.4
+
+# ── Real data path (now the default, not optional) ──────────────────────────────
+yfinance>=0.2          # OHLCV/macro ingestion (scripts/fetch_real_data.py, training/tasks.py::refresh_data)
+                        # AND the live news panel (features/sentiment/news_sentiment.py) hit on every
+                        # /api/v1/signals/{symbol} request — required by both the api and worker containers.
+
+# ── Not required to run what's implemented so far ───────────────────────────────
+# optuna>=3.6             # walk-forward hyperparameter search — harness exists (Phase 4), not run

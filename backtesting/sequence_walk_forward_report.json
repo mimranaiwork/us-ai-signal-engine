@@ -1,0 +1,459 @@
+{
+  "note": "Representative subset: horizons=['1D', '1M', '6M'], 2 most recent fold(s), 15 symbols, epochs=2 \u2014 NOT the full 7-horizon x all-folds sweep run_backtest.py does for XGBoost, see backtesting/walk_forward.py's module docstring for why.",
+  "config": {
+    "symbols": null,
+    "n_symbols": 15,
+    "data_start": "2018-01-01",
+    "data_end": "2026-08-08",
+    "seq_len": 60,
+    "epochs": 2,
+    "hidden_size": 32,
+    "n_folds": 2
+  },
+  "results": [
+    {
+      "horizon": "1D",
+      "architecture": "LSTM",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2023-01-01",
+        "val_end": "2024-01-01",
+        "test_end": "2025-01-01"
+      },
+      "final_val_acc": 0.41600000858306885,
+      "test_classification": {
+        "accuracy": 0.4439810953572422,
+        "precision_macro": 0.3238555715876981,
+        "recall_macro": 0.336734360030483,
+        "f1_macro": 0.23831787902122228,
+        "confusion_matrix": [
+          [
+            13,
+            847,
+            59
+          ],
+          [
+            19,
+            1540,
+            54
+          ],
+          [
+            23,
+            998,
+            44
+          ]
+        ],
+        "roc_auc_macro": 0.5511102617951762
+      },
+      "n_test": 3597,
+      "elapsed_seconds": 5.4
+    },
+    {
+      "horizon": "1D",
+      "architecture": "LSTM",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2024-01-01",
+        "val_end": "2025-01-01",
+        "test_end": "2026-01-01"
+      },
+      "final_val_acc": 0.4509313404560089,
+      "test_classification": {
+        "accuracy": 0.4704,
+        "precision_macro": 0.3488074769949423,
+        "recall_macro": 0.3439616868701613,
+        "f1_macro": 0.25892230741426453,
+        "confusion_matrix": [
+          [
+            19,
+            853,
+            70
+          ],
+          [
+            30,
+            1685,
+            51
+          ],
+          [
+            33,
+            949,
+            60
+          ]
+        ],
+        "roc_auc_macro": 0.5657905874743977
+      },
+      "n_test": 3750,
+      "elapsed_seconds": 5.9
+    },
+    {
+      "horizon": "1M",
+      "architecture": "LSTM",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2023-01-01",
+        "val_end": "2024-01-01",
+        "test_end": "2025-01-01"
+      },
+      "final_val_acc": 0.44685715436935425,
+      "test_classification": {
+        "accuracy": 0.39810953572421465,
+        "precision_macro": 0.3656657339363825,
+        "recall_macro": 0.3664472373253261,
+        "f1_macro": 0.34834623072248877,
+        "confusion_matrix": [
+          [
+            89,
+            252,
+            571
+          ],
+          [
+            106,
+            569,
+            679
+          ],
+          [
+            171,
+            386,
+            774
+          ]
+        ],
+        "roc_auc_macro": 0.5263901410738913
+      },
+      "n_test": 3597,
+      "elapsed_seconds": 4.6
+    },
+    {
+      "horizon": "1M",
+      "architecture": "LSTM",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2024-01-01",
+        "val_end": "2025-01-01",
+        "test_end": "2026-01-01"
+      },
+      "final_val_acc": 0.4264664947986603,
+      "test_classification": {
+        "accuracy": 0.37306666666666666,
+        "precision_macro": 0.3973526894286752,
+        "recall_macro": 0.35109251985571027,
+        "f1_macro": 0.30271891538310075,
+        "confusion_matrix": [
+          [
+            32,
+            276,
+            746
+          ],
+          [
+            15,
+            537,
+            843
+          ],
+          [
+            29,
+            442,
+            830
+          ]
+        ],
+        "roc_auc_macro": 0.5127698531754045
+      },
+      "n_test": 3750,
+      "elapsed_seconds": 5.7
+    },
+    {
+      "horizon": "6M",
+      "architecture": "LSTM",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2023-01-01",
+        "val_end": "2024-01-01",
+        "test_end": "2025-01-01"
+      },
+      "final_val_acc": 0.556857168674469,
+      "test_classification": {
+        "accuracy": 0.3511259382819016,
+        "precision_macro": 0.2338481909352289,
+        "recall_macro": 0.3191325898389095,
+        "f1_macro": 0.255299727252387,
+        "confusion_matrix": [
+          [
+            0,
+            198,
+            804
+          ],
+          [
+            0,
+            325,
+            925
+          ],
+          [
+            1,
+            406,
+            938
+          ]
+        ],
+        "roc_auc_macro": 0.48911512234385984
+      },
+      "n_test": 3597,
+      "elapsed_seconds": 4.6
+    },
+    {
+      "horizon": "6M",
+      "architecture": "LSTM",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2024-01-01",
+        "val_end": "2025-01-01",
+        "test_end": "2026-01-01"
+      },
+      "final_val_acc": 0.3619683086872101,
+      "test_classification": {
+        "accuracy": 0.48506666666666665,
+        "precision_macro": 0.3242734343020876,
+        "recall_macro": 0.36457889819668976,
+        "f1_macro": 0.318342480734261,
+        "confusion_matrix": [
+          [
+            0,
+            55,
+            624
+          ],
+          [
+            7,
+            340,
+            942
+          ],
+          [
+            0,
+            303,
+            1479
+          ]
+        ],
+        "roc_auc_macro": 0.5689658527087836
+      },
+      "n_test": 3750,
+      "elapsed_seconds": 5.8
+    },
+    {
+      "horizon": "1D",
+      "architecture": "Transformer",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2023-01-01",
+        "val_end": "2024-01-01",
+        "test_end": "2025-01-01"
+      },
+      "final_val_acc": 0.41600000858306885,
+      "test_classification": {
+        "accuracy": 0.45176536002224077,
+        "precision_macro": 0.3969728241206805,
+        "recall_macro": 0.36806238600605673,
+        "f1_macro": 0.3283299520038017,
+        "confusion_matrix": [
+          [
+            84,
+            717,
+            118
+          ],
+          [
+            98,
+            1361,
+            154
+          ],
+          [
+            80,
+            805,
+            180
+          ]
+        ],
+        "roc_auc_macro": 0.5614726386511156
+      },
+      "n_test": 3597,
+      "elapsed_seconds": 26.2
+    },
+    {
+      "horizon": "1D",
+      "architecture": "Transformer",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2024-01-01",
+        "val_end": "2025-01-01",
+        "test_end": "2026-01-01"
+      },
+      "final_val_acc": 0.43814289569854736,
+      "test_classification": {
+        "accuracy": 0.47573333333333334,
+        "precision_macro": 0.409718495836544,
+        "recall_macro": 0.38160662322406774,
+        "f1_macro": 0.33382224586733505,
+        "confusion_matrix": [
+          [
+            20,
+            656,
+            266
+          ],
+          [
+            11,
+            1447,
+            308
+          ],
+          [
+            25,
+            700,
+            317
+          ]
+        ],
+        "roc_auc_macro": 0.5821453364405074
+      },
+      "n_test": 3750,
+      "elapsed_seconds": 30.2
+    },
+    {
+      "horizon": "1M",
+      "architecture": "Transformer",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2023-01-01",
+        "val_end": "2024-01-01",
+        "test_end": "2025-01-01"
+      },
+      "final_val_acc": 0.4408571422100067,
+      "test_classification": {
+        "accuracy": 0.4156241312204615,
+        "precision_macro": 0.3436911758097261,
+        "recall_macro": 0.37455904175760374,
+        "f1_macro": 0.3346272173608897,
+        "confusion_matrix": [
+          [
+            25,
+            304,
+            583
+          ],
+          [
+            61,
+            640,
+            653
+          ],
+          [
+            65,
+            436,
+            830
+          ]
+        ],
+        "roc_auc_macro": 0.5488139856897037
+      },
+      "n_test": 3597,
+      "elapsed_seconds": 24.5
+    },
+    {
+      "horizon": "1M",
+      "architecture": "Transformer",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2024-01-01",
+        "val_end": "2025-01-01",
+        "test_end": "2026-01-01"
+      },
+      "final_val_acc": 0.42952460050582886,
+      "test_classification": {
+        "accuracy": 0.3824,
+        "precision_macro": 0.39089517247222316,
+        "recall_macro": 0.360829981575664,
+        "f1_macro": 0.31778636585564857,
+        "confusion_matrix": [
+          [
+            50,
+            333,
+            671
+          ],
+          [
+            46,
+            555,
+            794
+          ],
+          [
+            31,
+            441,
+            829
+          ]
+        ],
+        "roc_auc_macro": 0.5264540256578751
+      },
+      "n_test": 3750,
+      "elapsed_seconds": 30.0
+    },
+    {
+      "horizon": "6M",
+      "architecture": "Transformer",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2023-01-01",
+        "val_end": "2024-01-01",
+        "test_end": "2025-01-01"
+      },
+      "final_val_acc": 0.4765714406967163,
+      "test_classification": {
+        "accuracy": 0.3299972199054768,
+        "precision_macro": 0.2948071556414222,
+        "recall_macro": 0.30649839651551913,
+        "f1_macro": 0.2795885947137109,
+        "confusion_matrix": [
+          [
+            54,
+            248,
+            700
+          ],
+          [
+            77,
+            411,
+            762
+          ],
+          [
+            154,
+            469,
+            722
+          ]
+        ],
+        "roc_auc_macro": 0.4882221586264708
+      },
+      "n_test": 3597,
+      "elapsed_seconds": 24.2
+    },
+    {
+      "horizon": "6M",
+      "architecture": "Transformer",
+      "fold": {
+        "train_start": "2018-01-01",
+        "train_end": "2024-01-01",
+        "val_end": "2025-01-01",
+        "test_end": "2026-01-01"
+      },
+      "final_val_acc": 0.3672504723072052,
+      "test_classification": {
+        "accuracy": 0.4517333333333333,
+        "precision_macro": 0.2952072869605757,
+        "recall_macro": 0.34634800146393974,
+        "f1_macro": 0.30891973050985694,
+        "confusion_matrix": [
+          [
+            0,
+            59,
+            620
+          ],
+          [
+            0,
+            412,
+            877
+          ],
+          [
+            0,
+            500,
+            1282
+          ]
+        ],
+        "roc_auc_macro": 0.5667148862599366
+      },
+      "n_test": 3750,
+      "elapsed_seconds": 30.1
+    }
+  ]
+}

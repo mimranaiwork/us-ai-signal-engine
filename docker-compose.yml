@@ -1,0 +1,115 @@
+# TimescaleDB (Postgres) + Redis + FastAPI (real BUY/HOLD/SELL signals, Redis-
+# cached) + a Celery worker/beat pair for scheduled nightly retraining +
+# MLflow experiment tracking/model registry + an nginx-served static frontend.
+#
+# models/saved/* and data/processed/* are baked into the API/worker images by
+# `COPY . .` in the Dockerfile, so run the data/train pipeline locally BEFORE
+# `docker compose build` if you want the containers to start with real data
+# and trained models already present (skip this if you already have them,
+# e.g. from prior local development in this repo):
+#   python scripts/fetch_real_data.py && python scripts/fetch_macro_data.py
+#   python scripts/build_phase1_dataset.py --source real --end $(date +%Y-%m-%d)
+#   python scripts/augment_features.py && python training/train.py --no-mlflow
+#
+#   cp .env.example .env
+#   docker compose up -d --build
+#   docker compose exec postgres psql -U postgres -d us_ai_signal_engine -f /schema/schema.sql
+#   curl localhost:8000/api/v1/signals/AAPL
+#   curl localhost:8000/api/v1/monitoring/drift/AAPL
+#   open http://localhost:5173  # frontend
+#   open http://localhost:5001  # MLflow UI
+#
+# This ships with no auth/rate-limiting — see docs/SRS.md §4.3. Fine for a
+# machine only you can reach; do not expose these ports to the open internet
+# without adding auth in front of them first (e.g. a reverse proxy with basic
+# auth, or a VPN).
+
+services:
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-us_ai_signal_engine}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/schema/schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mlflow:
+    build: .
+    command: mlflow server --backend-store-uri sqlite:////mlflow-data/mlflow.db --default-artifact-root /mlflow-data/artifacts --host 0.0.0.0 --port 5001
+    ports:
+      - "5001:5001"
+    volumes:
+      - mlflowdata:/mlflow-data
+
+  api:
+    build: .
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-us_ai_signal_engine}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      MLFLOW_TRACKING_URI: http://mlflow:5001
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build: .
+    command: celery -A training.celery_app worker --loglevel=info
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      MLFLOW_TRACKING_URI: http://mlflow:5001
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  beat:
+    build: .
+    command: celery -A training.celery_app beat --loglevel=info
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE: ${VITE_API_BASE:-http://localhost:8000}
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  mlflowdata:

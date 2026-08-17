@@ -1,0 +1,595 @@
+{
+  "symbols": [
+    "AAPL",
+    "ADBE",
+    "AMD",
+    "AMGN",
+    "AMZN",
+    "AVGO",
+    "BA",
+    "BLK",
+    "CAT",
+    "COST",
+    "CRM",
+    "CVX"
+  ],
+  "validation_window": [
+    "2024-01-01",
+    "2025-01-01"
+  ],
+  "test_window": [
+    "2025-01-01",
+    "2026-08-11"
+  ],
+  "best_on_validation": {
+    "horizon_weights": "back_loaded",
+    "model_weights": "spec_default",
+    "buy_threshold": 0.1,
+    "sell_threshold": -0.1,
+    "avg_sharpe": 0.7186867407812058
+  },
+  "test_sharpe_optimized": 0.6464043242691783,
+  "test_sharpe_spec_default": 0.0,
+  "leaderboard": [
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.7186867407812058
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.7186867407812058
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.7186867407812058
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.7186867407812058
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6989421512079138
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.6982852434284568
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.6982852434284568
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.6981713604233106
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6971778155897553
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6953038138999191
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "equal",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6953038138999191
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6953038138999191
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6951523501183677
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "equal",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6951523501183677
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6951523501183677
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.6892812434747801
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.679093676641174
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.679093676641174
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.679093676641174
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.1,
+      "sell_threshold": -0.1,
+      "avg_sharpe": 0.6739863943026928
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.627710708487336
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.6229422647356241
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.60786759096734
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "equal",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.60786759096734
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.6003234248189921
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.5957489206394497
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.5944334291295029
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.5584606765625341
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.5581057821859562
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.5514984685079894
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "equal",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.5514984685079894
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.47652372918115776
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "equal",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.47652372918115776
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.4763375608043466
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.4719436351126955
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.4447208575780905
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.4447208575780905
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.43818248779855856
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.43818248779855856
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.15,
+      "sell_threshold": -0.15,
+      "avg_sharpe": 0.39652653079231115
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.19486354175477438
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "equal",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.19486354175477438
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.19486354175477438
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.19486354175477438
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.09441594084495902
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.023981046405275517
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.023981046405275517
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.023981046405275517
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.005740721262693978
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.005740721262693978
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.005076623908987707
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "equal",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "equal",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "spec_default",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "equal",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "equal",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "equal",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.2,
+      "sell_threshold": -0.2,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.25,
+      "sell_threshold": -0.25,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "front_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "spec_default",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "equal",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "xgboost_heavy",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    },
+    {
+      "horizon_weights": "back_loaded",
+      "model_weights": "lightgbm_heavy",
+      "buy_threshold": 0.3,
+      "sell_threshold": -0.3,
+      "avg_sharpe": 0.0
+    }
+  ]
+}

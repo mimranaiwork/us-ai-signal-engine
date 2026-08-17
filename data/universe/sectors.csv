@@ -1,0 +1,12 @@
+sector_code,sector_name,sector_etf
+TECHNOLOGY,Technology,XLK
+FINANCIALS,Financials,XLF
+ENERGY,Energy,XLE
+HEALTHCARE,Health Care,XLV
+INDUSTRIALS,Industrials,XLI
+CONSUMER_DISCRETIONARY,Consumer Discretionary,XLY
+CONSUMER_STAPLES,Consumer Staples,XLP
+UTILITIES,Utilities,XLU
+MATERIALS,Materials,XLB
+REAL_ESTATE,Real Estate,XLRE
+COMMUNICATION_SERVICES,Communication Services,XLC

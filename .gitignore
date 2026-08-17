@@ -1,0 +1,16 @@
+.env
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/market/sample/
+data/market/real/
+data/market/sample_corporate_actions.csv
+data/processed/
+*.parquet
+models/saved/
+data/sec/cache/
+backtesting/backtesting_report.json
+mlruns/
+mlartifacts/
+mlflow.db

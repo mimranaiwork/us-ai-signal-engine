@@ -1,0 +1,5 @@
+exchange_code,exchange_name,mic,country,timezone
+NYSE,New York Stock Exchange,XNYS,US,America/New_York
+NASDAQ,Nasdaq Stock Market,XNAS,US,America/New_York
+NYSE_AMERICAN,NYSE American,XASE,US,America/New_York
+ARCA,NYSE Arca (ETFs),ARCX,US,America/New_York
