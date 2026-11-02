@@ -1,0 +1,60 @@
+name: Shariah breakout trading bot
+
+on:
+  schedule:
+    # 15:00 UTC Mon-Fri = 10:00 New York (Nov-Mar) / 11:00 (Mar-Nov) = 18:00 Riyadh
+    - cron: "0 15 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "run | dry-run"
+        default: "dry-run"
+
+permissions:
+  contents: write   # saves trading_state/ (state, report, log) back to the repo
+
+concurrency:
+  group: trading-bot
+  cancel-in-progress: false
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-bot.txt
+
+      - run: pip install -r requirements-bot.txt
+
+      - name: Execution tests must pass before trading
+        run: python -m pytest tests/test_execution.py -q
+
+      - name: Run bot
+        env:
+          APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
+          APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
+          SEC_EDGAR_USER_AGENT: ${{ secrets.SEC_EDGAR_USER_AGENT }}   # enables the earnings guard
+          SIGNAL_API_URL: ${{ secrets.SIGNAL_API_URL }}               # optional: your deployed signal API
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ALPACA_LIVE: ${{ vars.ALPACA_LIVE }}                        # unset = paper trading
+        run: |
+          if [ "${{ github.event.inputs.mode || 'run' }}" = "dry-run" ]; then
+            python scripts/run_trading_bot.py --dry-run
+          else
+            python scripts/run_trading_bot.py
+          fi
+
+      - name: Save state and report
+        if: always()
+        run: |
+          git config user.name "trading-bot"
+          git config user.email "trading-bot@users.noreply.github.com"
+          git add -f trading_state/ data/universe/shariah_spus.txt 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "trading bot: $(date -u +%F)" && git push)

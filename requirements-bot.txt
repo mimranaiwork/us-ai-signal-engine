@@ -1,0 +1,8 @@
+# Execution layer only (scripts/run_trading_bot.py) — deliberately NOT the
+# full requirements.txt: no torch/xgboost/postgres needed to trade, so the
+# daily GitHub Actions run installs in seconds.
+alpaca-py>=0.30
+pandas>=2.1
+numpy
+PyYAML>=6.0
+pytest>=8.0
