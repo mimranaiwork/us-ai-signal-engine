@@ -165,6 +165,19 @@ def main():
     end = str(scores.index.max().date())
     ic = rank_ic(scores, prices)
 
+    # Stress tests (added before seeing their results): would a simple rule
+    # have done as well? Both use only prices up to the signal day.
+    daily_ret = prices.pct_change()
+    momentum = (prices / prices.shift(126) - 1).reindex(scores.index)          # ~6-month return
+    vol60 = daily_ret.rolling(60).std().reindex(scores.index)
+    W_mom = target_weights(momentum, TOP_N, -np.inf, reb)
+    W_vol = target_weights(vol60, TOP_N, -np.inf, reb)
+    held = W_model.gt(0)
+    pick_vol = (vol60.reindex(held.index)[held]).stack().mean()
+    univ_vol = vol60.reindex(held.index).stack().mean()
+    overlap_mom = (held & W_mom.reindex(held.index).gt(0)).sum(axis=1).sum() / held.sum(axis=1).sum()
+    most_held = (held.mean().sort_values(ascending=False).head(10) * 100).round(0)
+
     def m(res):   # empty period (no scores yet) -> zeros instead of a crash
         return {"cagr": 0.0, "max_drawdown": 0.0, "sharpe": 0.0, **(res.metrics or {})}
 
@@ -181,6 +194,9 @@ def main():
         rows = {
             f"AI top {TOP_N} (idle cash)": simulate(W_model, prices, ps, pe),
             f"AI top {TOP_N} (idle cash in SPUS)": simulate(W_model, prices, ps, pe, idle_prices=spus),
+            f"AI top {TOP_N}, costs ×7 (20 bps per side)": simulate(W_model, prices, ps, pe, cost_per_side=0.002),
+            f"Simple rule: top {TOP_N} by 6-month gain": simulate(W_mom, prices, ps, pe),
+            f"Simple rule: top {TOP_N} most volatile": simulate(W_vol, prices, ps, pe),
             "Equal-weight all Shariah stocks": simulate(W_equal, prices, ps, pe),
         }
         bh = spus.loc[ps:pe]
@@ -202,7 +218,12 @@ def main():
     L_out += [f"Weeks with at least one stock above the BUY threshold: {days_with_picks*100:.0f}%. "
               f"Average holdings when invested: {(W_model.gt(0).sum(axis=1)[W_model.sum(axis=1) > 0]).mean():.1f} stocks.", "",
               "Purging check: every model's latest training label date is before the year it trades "
-              "(see `fit_log` in the JSON).", ""]
+              "(see `fit_log` in the JSON).", "",
+              "## What the model actually held", "",
+              f"Average 60-day daily volatility of its picks: **{pick_vol*100:.2f}%** vs **{univ_vol*100:.2f}%** for the "
+              f"universe ({pick_vol/univ_vol:.1f}× as volatile). Share of its picks that were also in the 6-month-gain "
+              f"top {TOP_N}: **{overlap_mom*100:.0f}%**.", "",
+              "Most often held (% of weeks): " + ", ".join(f"{s} {v:.0f}%" for s, v in most_held.items()), ""]
     with open(os.path.join(OUT, "ai_signal_backtest_report.md"), "w") as f:
         f.write("\n".join(L_out) + "\n")
     with open(os.path.join(OUT, "ai_signal_backtest_report.json"), "w") as f:
