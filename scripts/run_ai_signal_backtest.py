@@ -165,8 +165,8 @@ def main():
     end = str(scores.index.max().date())
     ic = rank_ic(scores, prices)
 
-    def m(res):
-        return res.metrics
+    def m(res):   # empty period (no scores yet) -> zeros instead of a crash
+        return {"cagr": 0.0, "max_drawdown": 0.0, "sharpe": 0.0, **(res.metrics or {})}
 
     L_out = ["# AI signal backtest (walk-forward, XGBoost)", "",
              f"{scores.shape[1]} Shariah (SPUS) stocks, {scores.index.min().date()} → {end}. The model is retrained every January "
@@ -185,7 +185,7 @@ def main():
         }
         bh = spus.loc[ps:pe]
         from backtesting.metrics import trading_metrics
-        bhm = trading_metrics(bh / bh.iloc[0] * 100_000)
+        bhm = {"cagr": 0.0, "max_drawdown": 0.0, "sharpe": 0.0, **trading_metrics(bh / bh.iloc[0] * 100_000)}
         L_out += [f"## {pname} ({ps} → {pe})", "", "| Portfolio | CAGR | Max drawdown | Sharpe | Avg invested |",
                   "|---|---|---|---|---|"]
         for n, r in rows.items():
