@@ -30,7 +30,7 @@ from backtesting.ai_signal_backtest import (  # noqa: E402
     composite, decile_spread, purged_splits, rank_ic, simulate, target_weights, weekly_rebalance_days,
 )
 from calendar_us.trading_calendar import HORIZON_SESSIONS  # noqa: E402
-from execution.shariah_universe import FALLBACK_PATH, read_symbol_file  # noqa: E402
+from scripts.run_breakout_backtest import coverage_lines, get_universe  # noqa: E402
 from features.market.market_features import BENCHMARKS, add_relative_strength, compute_all_benchmark_features  # noqa: E402
 from features.price.price_features import add_price_features  # noqa: E402
 from features.technical.indicators import add_all_technical_indicators  # noqa: E402
@@ -96,10 +96,11 @@ def main():
     ap.add_argument("--first-year", type=int, default=2020)
     ap.add_argument("--data-start", default="2015-01-01")
     ap.add_argument("--max-symbols", type=int, default=0, help="debug: limit universe size")
+    ap.add_argument("--universe", choices=["auto", "pit", "today"], default="auto")
     args = ap.parse_args()
 
     weights, buy_threshold, label_method = settings()
-    universe = read_symbol_file(FALLBACK_PATH)
+    universe, membership, uni_label = get_universe(args.universe)
     if args.max_symbols:
         universe = universe[: args.max_symbols]
     t0 = time.time()
@@ -115,6 +116,15 @@ def main():
     print(f"rows with infinite feature values dropped: {int(inf_mask.sum()):,} of {len(F):,}")
     F = F[~inf_mask]
     F = F.dropna(subset=feat_cols).reset_index(drop=True)
+    # Point-in-time: a row is usable for training only if the stock was in the
+    # Shariah index on that date (so the model never learns from a stock's
+    # history before it qualified, e.g. a later winner's run-up).
+    if membership is not None:
+        on = {d: membership.on(d) for d in F["date"].unique()}
+        F["eligible"] = [s in on[d] for d, s in zip(F["date"], F["symbol"])]
+    else:
+        F["eligible"] = True
+    print(f"rows eligible for training: {F['eligible'].mean() * 100:.0f}%")
     key = pd.MultiIndex.from_arrays([F["date"], F["symbol"]])
     for h in HORIZON_SESSIONS:   # align each horizon's label + label-known date to the feature rows
         Lh = L[L["horizon"] == h].drop_duplicates(["date", "symbol"]).set_index(["date", "symbol"])
@@ -132,7 +142,7 @@ def main():
             continue
         per_h = {}
         for h in HORIZON_SESSIONS:
-            meta = pd.DataFrame({"date": F["date"], "label": F[f"label_{h}"],
+            meta = pd.DataFrame({"date": F["date"], "label": F[f"label_{h}"].where(F["eligible"]),
                                  "target_session_date": pd.to_datetime(F[f"target_{h}"])})
             train, val = purged_splits(meta, year)
             if len(train) < 1000 or len(val) < 200:
@@ -153,6 +163,8 @@ def main():
             score_parts.append(pd.DataFrame({"date": test_rows["date"], "symbol": test_rows["symbol"], "score": sc}))
 
     scores = pd.concat(score_parts).pivot_table(index="date", columns="symbol", values="score")
+    member_mask = membership.mask(scores.index, scores.columns) if membership is not None else scores.notna()
+    scores = scores.where(member_mask)          # only stocks in the index that day can be picked or ranked
     prices = pd.DataFrame({s: bars[s].set_index(pd.to_datetime(bars[s]["date"]))["adj_close"]
                            for s in scores.columns}).sort_index()
     spus = bars["SPUS"].set_index(pd.to_datetime(bars["SPUS"]["date"]))["adj_close"].sort_index()
@@ -160,7 +172,7 @@ def main():
     reb = weekly_rebalance_days(scores.index)
 
     W_model = target_weights(scores, TOP_N, buy_threshold, reb)
-    have_price = prices.reindex(reb).notna()
+    have_price = prices.reindex(reb).notna() & member_mask.reindex(reb).fillna(False).astype(bool)
     W_equal = have_price.div(have_price.sum(axis=1), axis=0).fillna(0.0)
     end = str(scores.index.max().date())
     ic = rank_ic(scores, prices)
@@ -168,8 +180,8 @@ def main():
     # Stress tests (added before seeing their results): would a simple rule
     # have done as well? Both use only prices up to the signal day.
     daily_ret = prices.pct_change()
-    momentum = (prices / prices.shift(126) - 1).reindex(scores.index)          # ~6-month return
-    vol60 = daily_ret.rolling(60).std().reindex(scores.index)
+    momentum = (prices / prices.shift(126) - 1).reindex(scores.index).where(member_mask)   # ~6-month return
+    vol60 = daily_ret.rolling(60).std().reindex(scores.index).where(member_mask)
     W_mom = target_weights(momentum, TOP_N, -np.inf, reb)
     W_vol = target_weights(vol60, TOP_N, -np.inf, reb)
     held = W_model.gt(0)
@@ -182,12 +194,15 @@ def main():
         return {"cagr": 0.0, "max_drawdown": 0.0, "sharpe": 0.0, **(res.metrics or {})}
 
     L_out = ["# AI signal backtest (walk-forward, XGBoost)", "",
-             f"{scores.shape[1]} Shariah (SPUS) stocks, {scores.index.min().date()} → {end}. The model is retrained every January "
+             f"{scores.shape[1]} Shariah (SPUS) stocks, {scores.index.min().date()} → {end}. Universe: **{uni_label}**. "
+             "The model is retrained every January "
              f"on purged past data only, scores combine the 7 horizons with the repo's weights, and the portfolio holds the "
              f"**top {TOP_N} stocks scoring ≥ {buy_threshold:+.2f}** (the BUY threshold), rebalanced weekly, traded one day after the "
              "signal, 3 bps per side. Nothing was tuned on these results.", "",
-             "**Read with care:** today's Shariah list applied to the past (survivorship bias); XGBoost only (no LightGBM/LSTM/"
-             "Transformer); no conservative-HOLD overrides; no sector/macro/fundamental features. Not financial advice.", ""]
+             ("**Read with care:** today's Shariah list applied to the past (survivorship bias); " if membership is None else
+              "Stocks are picked, ranked and trained on only for dates they were in the Shariah index. ") +
+             "XGBoost only (no LightGBM/LSTM/Transformer); no conservative-HOLD overrides; no sector/macro/fundamental "
+             "features. Not financial advice.", ""] + coverage_lines(membership, bars, "2020-01-01")
     summary = {}
     for pname, (ps, pe) in PERIODS.items():
         pe = pe or end

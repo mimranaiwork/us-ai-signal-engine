@@ -138,3 +138,20 @@ def test_cfg_overrides_change_behaviour():
     frames = {"AAA": df, "SPUS": bench(len(df))}
     res = run(frames, ["AAA"], no_partial, df.index[230], df.index[-1])
     assert not any("partial" in e[3] for e in res["trades"][0].exits)
+
+
+def test_point_in_time_universe_blocks_non_members():
+    from execution.shariah_history import Membership
+    df = breakout_then([106, 107, 108])
+    frames = {"AAA": df, "SPUS": bench(len(df))}
+    sig = df.index[len(UP) + len(BASE)]
+    joined_later = Membership(pd.DataFrame({"snapshot_date": [str((sig + pd.Timedelta(days=30)).date())],
+                                            "ticker": ["AAA"]}))
+    never = Membership(pd.DataFrame({"snapshot_date": ["2020-01-31"], "ticker": ["ZZZ"]}))
+    member = Membership(pd.DataFrame({"snapshot_date": ["2020-01-31"], "ticker": ["AAA"]}))
+    assert run(frames, ["AAA"], CFG, df.index[230], df.index[-1], membership=member)["summary"]["trades"] == 1
+    assert run(frames, ["AAA"], CFG, df.index[230], df.index[-1], membership=never)["summary"]["trades"] == 0
+    # before the first snapshot the first snapshot applies, so use a two-snapshot history to test "joined later"
+    two = Membership(pd.DataFrame({"snapshot_date": ["2020-01-31", str((sig + pd.Timedelta(days=30)).date())],
+                                   "ticker": ["ZZZ", "AAA"]}))
+    assert run(frames, ["AAA"], CFG, df.index[230], df.index[-1], membership=two)["summary"]["trades"] == 0

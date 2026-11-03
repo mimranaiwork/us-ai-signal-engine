@@ -1,0 +1,45 @@
+name: Shariah universe history
+
+# Rebuilds data/universe/shariah_history.csv (SPUS holdings at every
+# quarter-end, from SEC N-PORT filings) and commits it back.
+on:
+  workflow_dispatch:
+  push:
+    branches: [feature/point-in-time-universe]
+    paths:
+      - "scripts/build_shariah_history.py"
+      - "execution/shariah_history.py"
+      - ".github/workflows/shariah-history.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: shariah-history
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-bot.txt
+      - run: pip install -r requirements-bot.txt
+      - name: Tests must pass first
+        run: python -m pytest tests/test_shariah_history.py -q
+      - name: Build history from SEC filings
+        env:
+          SEC_EDGAR_USER_AGENT: ${{ secrets.SEC_EDGAR_USER_AGENT }}
+        run: python scripts/build_shariah_history.py
+      - name: Save
+        if: success()
+        run: |
+          git config user.name "trading-bot"
+          git config user.email "trading-bot@users.noreply.github.com"
+          git add data/universe/shariah_history.csv
+          git diff --cached --quiet || (git commit -m "Shariah universe history $(date -u +%F)" && git pull --rebase -q && git push)
