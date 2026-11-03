@@ -76,8 +76,26 @@ def parse_nport(xml_text: str) -> dict:
     return {"series_id": series_id, "period_end": period_end, "holdings": holdings}
 
 
+# Historical holdings the automatic matching can't resolve: acquired or
+# delisted companies, and names whose SEC listing title changed. Keys are
+# norm_name() of the filing's company name. Verified against public records.
+NAME_OVERRIDES = {
+    "ABIOMED": "ABMD", "ACTIVISION BLIZZARD": "ATVI", "ALEXION PHARMACEUTICALS": "ALXN", "AMERICAN TOWER": "AMT",
+    "ANSYS": "ANSS", "AVALONBAY COMMUNITIES": "AVB", "CABOT OIL AND GAS": "CTRA", "CATALENT": "CTLT",
+    "CERIDIAN HCM": "DAY", "CERNER": "CERN", "CITRIX SYSTEMS": "CTXS", "COOPER COS": "COO", "COTERRA ENERGY": "CTRA",
+    "CROWN CASTLE INTERNATIONAL COR": "CCI", "CROWN CASTLE INTERNATIONAL": "CCI", "DUKE REALTY": "DRE",
+    "EQUITY RESIDENTIAL": "EQR", "EXXON MOBIL": "XOM", "FACEBOOK": "META",
+    "FORTUNE BRANDS HOME AND SECURITY": "FBIN", "HOLOGIC": "HOLX", "JUNIPER NETWORKS": "JNPR", "KANSAS CITY SOUTHERN": "KSU",
+    "KELLOGG": "K", "LABORATORY OF AMERICA HOL": "LH", "LABORATORY OF AMERICA": "LH", "MAXIM INTEGRATED PRODUCTS": "MXIM",
+    "MCDONALDS": "MCD", "NORTONLIFELOCK": "GEN", "PIONEER NATURAL RESOURCES": "PXD", "ROBERT HALF INTERNATIONAL": "RHI",
+    "TWITTER": "TWTR", "VARIAN MEDICAL SYSTEMS": "VAR", "VF": "VFC", "WALGREENS BOOTS ALLIANCE": "WBA",
+}
+# Old ticker -> today's ticker for companies that renamed (price history lives under the new symbol).
+RENAMED = {"FB": "META", "NLOK": "GEN", "CDAY": "DAY", "COG": "CTRA", "FBHS": "FBIN"}
+
+
 def norm_name(name: str) -> str:
-    s = re.sub(r"[^A-Z0-9 ]", " ", (name or "").upper().replace("&", " AND "))
+    s = re.sub(r"[^A-Z0-9 ]", " ", (name or "").upper().replace("&", " AND ").replace("'", ""))
     s = _SUFFIXES.sub(" ", s)
     return re.sub(r"\s+", " ", s).strip()
 
@@ -88,20 +106,43 @@ def resolve_ticker(h: dict, cusip_map: dict[str, str], name_map: dict[str, str])
     exact normalised-name match against SEC's company list. ('', 'unmatched') otherwise."""
     t = (h.get("ticker") or "").replace("/", ".").replace(" ", ".")
     if TICKER_RE.match(t):
-        return t.replace("-", "."), "filing"
+        t = t.replace("-", ".")
+        return RENAMED.get(t, t), "filing"
     c = (h.get("cusip") or "").upper()
     if c and c in cusip_map:
-        return cusip_map[c], "cusip"
-    for key in (norm_name(h.get("name", "")), norm_name(h.get("title", ""))):
-        if key and key in name_map:
-            return name_map[key], "name"
+        return RENAMED.get(cusip_map[c], cusip_map[c]), "cusip"
+    keys = [k for k in (norm_name(h.get("name", "")), norm_name(h.get("title", ""))) if k]
+    for key in keys:
+        if key in NAME_OVERRIDES:
+            return NAME_OVERRIDES[key], "override"
+    for key in keys:
+        if key in name_map:
+            return RENAMED.get(name_map[key], name_map[key]), "name"
     return "", "unmatched"
+
+
+def fill_by_cusip(rows: list[dict]) -> int:
+    """Second pass: a stock matched in one quarter keeps that ticker in quarters
+    where its filing omitted it (same permanent CUSIP). Returns rows filled."""
+    known = {}
+    for r in rows:
+        if r["ticker"] and r.get("cusip"):
+            known.setdefault(r["cusip"].upper(), r["ticker"])
+    n = 0
+    for r in rows:
+        c = (r.get("cusip") or "").upper()
+        if not r["ticker"] and c in known:
+            r["ticker"], r["matched_by"] = known[c], "cusip_history"
+            n += 1
+    return n
 
 
 def is_equity(h: dict) -> bool:
     cat = (h.get("asset_cat") or "").upper()
     text = f"{h.get('name') or ''} {h.get('title') or ''}".upper()
     if cat and cat not in ("EC", "EP"):          # EC common equity, EP preferred
+        return False
+    if h.get("value_usd") == 0 or h.get("pct") == 0:   # zero-value leftovers (e.g. contingent value rights)
         return False
     return not re.search(r"MONEY MARKET|TREASURY|\bCASH\b|\bCVR\b|CONTINGENT VALUE|\bRIGHTS?\b", text)
 
@@ -134,6 +175,17 @@ class Membership:
             mem = self.on(d)
             out.loc[d] = [c in mem for c in cols]
         return out
+
+
+def coverage(m: Membership, have_prices) -> pd.DataFrame:
+    """Per snapshot: members, how many have price data, and that share. Members
+    with no prices (delisted, acquired) are the bias that remains."""
+    have = set(have_prices)
+    rows = [{"snapshot_date": d.date(), "members": len(s), "with_prices": len(s & have),
+             "missing": ", ".join(sorted(s - have))} for d, s in zip(m.dates, m.sets)]
+    df = pd.DataFrame(rows)
+    df["coverage"] = df["with_prices"] / df["members"]
+    return df
 
 
 def load_membership(path: str = HISTORY_PATH) -> Membership | None:

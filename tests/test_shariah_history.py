@@ -61,3 +61,18 @@ def test_membership_applies_each_snapshot_until_the_next():
     mask = m.mask(pd.DatetimeIndex(["2021-04-01", "2021-07-01"]), ["AAA", "BBB", "CCC"])
     assert mask.values.tolist() == [[True, True, False], [True, False, True]]
     assert m.all == {"AAA", "BBB", "CCC"}
+
+
+def test_overrides_renames_and_cusip_carry_forward():
+    from execution.shariah_history import fill_by_cusip
+    assert resolve_ticker({"name": "Facebook Inc"}, {}, {}) == ("META", "override")
+    assert resolve_ticker({"name": "McDonald's Corp"}, {}, {}) == ("MCD", "override")
+    assert resolve_ticker({"ticker": "FB"}, {}, {}) == ("META", "filing")
+    rows = [{"ticker": "EQR", "cusip": "29476L107", "matched_by": "filing"},
+            {"ticker": "", "cusip": "29476l107", "matched_by": "unmatched"}]
+    assert fill_by_cusip(rows) == 1 and rows[1]["ticker"] == "EQR" and rows[1]["matched_by"] == "cusip_history"
+
+
+def test_zero_value_leftovers_are_not_holdings():
+    assert not is_equity({"name": "ABIOMED INC", "title": "ABIOMED INC", "asset_cat": "EC", "value_usd": 0.0, "pct": 0.0})
+    assert is_equity({"name": "Pool Corp", "asset_cat": "EC", "value_usd": 50.0, "pct": 0.5})

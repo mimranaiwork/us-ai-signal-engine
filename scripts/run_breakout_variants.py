@@ -28,7 +28,7 @@ sys.path.insert(0, ROOT)
 
 from backtesting.breakout_backtest import run  # noqa: E402
 from execution.shariah_universe import FALLBACK_PATH, read_symbol_file  # noqa: E402
-from scripts.run_breakout_backtest import download, load_cfg  # noqa: E402
+from scripts.run_breakout_backtest import coverage_lines, download, get_universe, load_cfg  # noqa: E402
 
 OUT = os.path.join(ROOT, "backtesting")
 SELECT = ("2020-01-01", "2023-12-31")
@@ -78,7 +78,7 @@ HEAD = ["| Variant | CAGR | Max drawdown | Sharpe | Trades | Win rate | Avg per 
 
 def main():
     base_cfg = load_cfg()
-    universe = read_symbol_file(FALLBACK_PATH)
+    universe, membership, uni_label = get_universe()
     t0 = time.time()
     frames = download(universe + ["SPUS", "SPY"], "2018-06-01")
     uni = [s for s in universe if s in frames]
@@ -86,7 +86,7 @@ def main():
     print(f"downloaded {len(frames)} symbols in {time.time() - t0:.0f}s; end {end}")
 
     def go(cfg_over, idle, start, stop):
-        return run(frames, uni, {**base_cfg, **cfg_over}, start, stop, idle_cash_in=idle)
+        return run(frames, uni, {**base_cfg, **cfg_over}, start, stop, idle_cash_in=idle, membership=membership)
 
     sel = {}
     for name, (over, idle) in VARIANTS.items():
@@ -106,8 +106,8 @@ def main():
     L = ["# Breakout strategy: variant study", "",
          f"Seven variants fixed in advance. Each was run on the **selection period ({SELECT[0]} → {SELECT[1]})**; "
          f"the best Sharpe ratio was chosen; that choice was then checked on the **test period ({TEST_START} → {end})**, "
-         "which played no part in choosing it. Same simulator, costs and caveats as `breakout_backtest_report.md` "
-         "(survivorship bias flatters every variant equally; earnings guard and AI filter not simulated). Not financial advice.", "",
+         "which played no part in choosing it. Same simulator, costs and caveats as `breakout_backtest_report.md`. "
+         f"Universe: **{uni_label}**. Earnings guard and AI filter not simulated. Not financial advice.", ""] + coverage_lines(membership, frames, SELECT[0]) + [
          "## Variants", ""] + [f"- **{n}**: {DESCRIPTIONS[n[0]]}" for n in VARIANTS] + [
          "", f"## Selection period ({SELECT[0]} → {SELECT[1]})", ""] + HEAD + [row(n, r) for n, r in sel.items()] + [
          bench_row(sel[baseline]), "", f"**Chosen on Sharpe: {chosen}**", "",

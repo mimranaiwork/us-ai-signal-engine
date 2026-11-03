@@ -69,11 +69,16 @@ def prepare(frames: dict[str, pd.DataFrame], cfg: dict) -> dict[str, pd.DataFram
 def run(frames: dict[str, pd.DataFrame], universe: list[str], cfg: dict, start, end,
         initial_capital: float = 100_000.0, benchmark: str = "SPUS", fallback_benchmark: str = "SPY",
         use_market_filter: bool = True, costs: TransactionCostModel | None = None,
-        idle_cash_in: str | None = None) -> dict:
+        idle_cash_in: str | None = None, membership=None) -> dict:
     """idle_cash_in: if set (e.g. "SPUS"), cash not used by open trades is held
     in that ETF: it earns the ETF's close-to-close return, and each trade pays
     one extra side of costs for selling/buying the ETF to fund it. Approximates
-    a core (ETF) + satellite (breakouts) portfolio."""
+    a core (ETF) + satellite (breakouts) portfolio.
+
+    membership: optional execution.shariah_history.Membership. When given, a
+    stock can only be BOUGHT on days it was actually in the Shariah index
+    (point-in-time universe); open positions are still managed to their exit,
+    as the live bot does."""
     costs = costs or TransactionCostModel(commission_per_share=0.0, commission_minimum=0.0)
     side_cost = costs.entry_or_exit_cost_pct()
     data = prepare(frames, cfg)
@@ -190,7 +195,10 @@ def run(frames: dict[str, pd.DataFrame], universe: list[str], cfg: dict, start, 
         slots = cfg["max_positions"] - len(open_trades)
         if regime_ok and slots > 0:
             found = []
+            members = membership.on(d) if membership is not None else None
             for sym in universe:
+                if members is not None and sym not in members:
+                    continue
                 i = pos_lookup.get(sym, {}).get(d)
                 if i is None or sym in open_trades:
                     continue

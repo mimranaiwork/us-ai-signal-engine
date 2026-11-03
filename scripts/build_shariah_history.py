@@ -25,7 +25,7 @@ import pandas as pd
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, ROOT)
 
-from execution.shariah_history import HISTORY_PATH, is_equity, norm_name, parse_nport, resolve_ticker  # noqa: E402
+from execution.shariah_history import HISTORY_PATH, fill_by_cusip, is_equity, norm_name, parse_nport, resolve_ticker  # noqa: E402
 from execution.shariah_universe import SPUS_HOLDINGS_URL, parse_holdings_csv  # noqa: E402
 
 SERIES_ID = "S000067283"
@@ -127,6 +127,9 @@ def main():
             how_counts[how] = how_counts.get(how, 0) + 1
             rows.append({"snapshot_date": period, "ticker": ticker, "name": h["name"], "cusip": h["cusip"],
                          "isin": h["isin"], "pct": h["pct"], "matched_by": how, "filing": folder})
+    filled = fill_by_cusip(rows)
+    how_counts["cusip_history"] = filled
+    how_counts["unmatched"] = how_counts.get("unmatched", 0) - filled
     df = pd.DataFrame(rows)
     df.to_csv(HISTORY_PATH, index=False)
 
