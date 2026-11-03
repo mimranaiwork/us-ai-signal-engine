@@ -1,0 +1,100 @@
+{
+  "With SPUS market filter (live bot setting)": {
+    "metrics": {
+      "total_return": 0.32442210714704833,
+      "cagr": 0.04185150657112935,
+      "annualized_volatility": 0.09984821921690609,
+      "sharpe": 0.46090093358380035,
+      "sortino": 0.556545753591761,
+      "max_drawdown": -0.12574573088806884,
+      "calmar": 0.33282646079160333,
+      "win_rate": 0.45229681978798586,
+      "profit_factor": 1.2356942529461854,
+      "average_trade_return": 0.0052942350888862426,
+      "n_periods": 1727
+    },
+    "benchmark": {
+      "total_return": 2.0583714732399616,
+      "cagr": 0.17717669460439556,
+      "annualized_volatility": 0.2102784917121371,
+      "sharpe": 0.8816178142685802,
+      "sortino": 1.1729642324464904,
+      "max_drawdown": -0.3080148895780529,
+      "calmar": 0.5752212006604891,
+      "win_rate": 0.5405561993047509,
+      "profit_factor": 1.1726689682842424,
+      "average_trade_return": 0.0007356558105196351,
+      "n_periods": 1727,
+      "symbol": "SPUS"
+    },
+    "summary": {
+      "trades": 283,
+      "win_rate": 0.45229681978798586,
+      "avg_win_r": 1.3345961740462733,
+      "avg_loss_r": -0.8570969118451046,
+      "expectancy_r": 0.1341989008548825,
+      "avg_hold_sessions": 17.6113074204947,
+      "time_in_market": 0.7672264041690793,
+      "avg_positions": 2.8888245512449333,
+      "market_filter_on_pct": 0.6988998262883613,
+      "exit_reasons": {
+        "stop hit": 144,
+        "time stop": 96,
+        "stop (gap down)": 26,
+        "failed breakout": 12,
+        "open at end of test": 5
+      }
+    },
+    "start": "2019-12-18",
+    "end": "2026-11-02"
+  },
+  "Without market filter": {
+    "metrics": {
+      "total_return": 0.24374475715260768,
+      "cagr": 0.03234052301205814,
+      "annualized_volatility": 0.11116637203629016,
+      "sharpe": 0.3421872906946103,
+      "sortino": 0.4373107018995936,
+      "max_drawdown": -0.17338186718079007,
+      "calmar": 0.18652771214152275,
+      "win_rate": 0.4277456647398844,
+      "profit_factor": 1.149596975582636,
+      "average_trade_return": 0.003410968992630016,
+      "n_periods": 1727
+    },
+    "benchmark": {
+      "total_return": 2.0583714732399616,
+      "cagr": 0.17717669460439556,
+      "annualized_volatility": 0.2102784917121371,
+      "sharpe": 0.8816178142685802,
+      "sortino": 1.1729642324464904,
+      "max_drawdown": -0.3080148895780529,
+      "calmar": 0.5752212006604891,
+      "win_rate": 0.5405561993047509,
+      "profit_factor": 1.1726689682842424,
+      "average_trade_return": 0.0007356558105196351,
+      "n_periods": 1727,
+      "symbol": "SPUS"
+    },
+    "summary": {
+      "trades": 346,
+      "win_rate": 0.4277456647398844,
+      "avg_win_r": 1.3599318966318465,
+      "avg_loss_r": -0.8624987743754233,
+      "expectancy_r": 0.08813631033288846,
+      "avg_hold_sessions": 17.277456647398843,
+      "time_in_market": 0.8969310943833236,
+      "avg_positions": 3.464389114070643,
+      "market_filter_on_pct": 1.0,
+      "exit_reasons": {
+        "stop hit": 171,
+        "time stop": 118,
+        "stop (gap down)": 36,
+        "failed breakout": 16,
+        "open at end of test": 5
+      }
+    },
+    "start": "2019-12-18",
+    "end": "2026-11-02"
+  }
+}
