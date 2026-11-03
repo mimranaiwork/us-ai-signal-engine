@@ -37,7 +37,8 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-bot.txt
 
-      - run: pip install -r requirements-bot.txt "yfinance>=0.2.40"
+      # scikit-learn: backtesting/metrics.py imports it (classification metrics)
+      - run: pip install -r requirements-bot.txt "yfinance>=0.2.40" "scikit-learn>=1.4"
 
       - name: Tests must pass first
         run: python -m pytest tests/test_execution.py tests/test_breakout_backtest.py -q
