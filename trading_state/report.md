@@ -1,4 +1,4 @@
-# Shariah breakout scan — 2026-11-03 02:34 New York (PAPER dry-run)
+# Shariah breakout scan — 2026-11-03 15:41 New York (PAPER)
 
 Universe: SPUS live holdings (214 stocks).
 Market filter: OFF — no new buys
