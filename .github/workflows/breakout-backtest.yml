@@ -1,0 +1,54 @@
+name: Breakout strategy backtest
+
+# Runs scripts/run_breakout_backtest.py on real prices (Yahoo Finance via
+# yfinance) and commits backtesting/breakout_backtest_report.md back to the
+# branch it ran on. Manual, or on pushes to the backtest branch.
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "First trading day of the test (YYYY-MM-DD)"
+        default: "2019-01-01"
+  push:
+    branches: [feature/breakout-backtest]
+    paths:
+      - "backtesting/breakout_backtest.py"
+      - "scripts/run_breakout_backtest.py"
+      - "execution/breakout.py"
+      - ".github/workflows/breakout-backtest.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: breakout-backtest
+  cancel-in-progress: true
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-bot.txt
+
+      - run: pip install -r requirements-bot.txt "yfinance>=0.2.40"
+
+      - name: Tests must pass first
+        run: python -m pytest tests/test_execution.py tests/test_breakout_backtest.py -q
+
+      - name: Run backtest
+        run: python scripts/run_breakout_backtest.py --start "${{ github.event.inputs.start || '2019-01-01' }}"
+
+      - name: Save report
+        if: success()
+        run: |
+          git config user.name "trading-bot"
+          git config user.email "trading-bot@users.noreply.github.com"
+          git add backtesting/breakout_backtest_report.md backtesting/breakout_backtest_report.json backtesting/breakout_backtest_trades.csv
+          git diff --cached --quiet || (git commit -m "backtest report $(date -u +%F)" && git push)
