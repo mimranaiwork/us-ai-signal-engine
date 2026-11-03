@@ -645,3 +645,69 @@ validation are all done now — see that section for specifics). What's left:
   in `features/macro/macro_features.py` — see that script's docstring for
   why (FRED's point-in-time vintage fields are needed to avoid leaking
   revised-later economic data, not implemented here).
+
+## Execution layer — Shariah breakout trading bot (Alpaca)
+
+Turns the research engine into something that can place trades. Paper
+trading by default; long only, cash only (no margin), no shorting, no
+options. **Not financial advice and not a religious ruling.**
+
+```
+SPUS Shariah holdings ──► minus names this project's DIY screen fails ──► universe (~215)
+        │                  (features/compliance/sharia_screen.py report)
+        ▼
+execution/breakout.py ──► uptrend + tight base + 50-day-high breakout on 1.5× volume
+        │                  near-breakout watchlist; 1%-risk sizing; exits
+        ▼
+execution/earnings_guard.py ──► skip entries / halve positions near earnings
+        │                        (reuses features/earnings + SEC EDGAR)
+        ▼
+execution/ai_filter.py ──► optional second opinion from GET /api/v1/signals/{symbol}
+        │                   (veto_sell by default; off | require_buy)
+        ▼
+execution/broker_alpaca.py ──► market orders + broker-side GTC stop on every position
+        │
+        ▼
+trading_state/report.md (breakouts, watchlist, positions, actions) + Telegram
+```
+
+| Rule | Value |
+|---|---|
+| Entry | close > 50-day high, volume ≥ 1.5× 50-day avg, upper half of day's range, ≤ 5% extended |
+| Setup | close > SMA50 > SMA200; prior 20 sessions' range ≤ 15% |
+| Market filter | new buys only while SPUS > its 50-day avg |
+| Stop | max(base low − 1%, entry − 2×ATR), skipped if > 10% away |
+| Size | 1% of equity at risk, ≤ 20% per name, ≤ 5 positions, cash only |
+| Exits | +2R: sell half, stop → break-even, trail 3×ATR · failed breakout (−3% under level within 5 sessions) · time stop (15 sessions < +0.5R) · halve before earnings |
+
+Thresholds are round, commonly-used values — **not walk-forward-validated
+yet** (same honesty class as `pivot_points.BREAKOUT_PROXIMITY_PCT`).
+Override them in `config/settings.yaml` → `trading.rules`.
+
+Why the ensemble is a veto rather than the trigger: per this file's own
+walk-forward notes, the final signal is HOLD most of the time and SELL
+rarely fires, so `require_buy` would block nearly every trade. The
+breakout rules supply entry, stop and size; the models supply a second
+opinion.
+
+**Run locally**
+```
+pip install -r requirements-bot.txt
+export APCA_API_KEY_ID=... APCA_API_SECRET_KEY=...         # Alpaca paper keys
+export SEC_EDGAR_USER_AGENT="Your Name you@example.com"     # enables earnings guard
+export SIGNAL_API_URL=http://localhost:8000                 # optional, your running API
+python scripts/run_trading_bot.py --dry-run
+pytest tests/test_execution.py
+```
+
+**Run on GitHub Actions** (`.github/workflows/trading-bot.yml`): add repo
+secrets `APCA_API_KEY_ID`, `APCA_API_SECRET_KEY`, `SEC_EDGAR_USER_AGENT`
+(optional: `SIGNAL_API_URL`, `TELEGRAM_TOKEN`, `TELEGRAM_CHAT_ID`), then
+Actions → *Shariah breakout trading bot* → Run workflow → `dry-run`. It
+then runs Mon–Fri 15:00 UTC (18:00 Riyadh), runs `tests/test_execution.py`
+before trading, and commits `trading_state/` back. Installs only
+`requirements-bot.txt` — no torch. `SIGNAL_API_URL` must be a publicly
+reachable deployment of `api/` for the AI filter to work from Actions;
+without it the bot trades on breakout rules alone and says so in the report.
+Kill switch: commit a file named `STOP` at the repo root. Going live:
+set repo variable `ALPACA_LIVE=yes`, use a **cash** (not margin) account.

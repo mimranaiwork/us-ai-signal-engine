@@ -102,3 +102,21 @@ redis:
 api:
   host: 0.0.0.0
   port: 8000
+
+# Execution layer (execution/, scripts/run_trading_bot.py) — Alpaca paper
+# trading of Shariah-screened breakouts. Rule thresholds are round,
+# commonly-used values, NOT walk-forward-optimized (same honesty class as
+# features/technical/pivot_points.py's BREAKOUT_PROXIMITY_PCT). Anything in
+# `rules` overrides execution/breakout.py's DEFAULTS. Earnings window reuses
+# `earnings.risk_window_days` above.
+trading:
+  benchmark: SPUS                # new buys only while this is above its 50-day avg
+  ai_filter_mode: veto_sell      # off | veto_sell | require_buy (needs SIGNAL_API_URL)
+  block_if_earnings_unknown: false
+  exclude: []                    # tickers you personally don't want traded
+  rules:
+    risk_per_trade: 0.01         # 1% of equity lost if a stop is hit
+    max_positions: 5
+    max_position_pct: 0.20
+    breakout_vol_mult: 1.5
+    max_base_depth: 0.15
