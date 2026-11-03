@@ -3,50 +3,101 @@
     "2020\u20132023": {
       "AI top 10 (idle cash)": {
         "metrics": {
-          "total_return": 2.003273664008443,
-          "cagr": 0.3171526202053545,
-          "annualized_volatility": 0.38342710957018983,
-          "sharpe": 0.911472511446537,
-          "sortino": 1.2914253236156956,
-          "max_drawdown": -0.45652018117321,
-          "calmar": 0.6947176341477497,
+          "total_return": 1.7905284029307853,
+          "cagr": 0.29313279503830514,
+          "annualized_volatility": 0.3841015053309277,
+          "sharpe": 0.8626438560275163,
+          "sortino": 1.216914485894339,
+          "max_drawdown": -0.4604965790201888,
+          "calmar": 0.6365580297295841,
           "win_rate": 0.5164179104477612,
-          "profit_factor": 1.1760480558914745,
-          "average_trade_return": 0.0013868383750659818,
+          "profit_factor": 1.1657642391562597,
+          "average_trade_return": 0.001314852395494623,
           "n_periods": 1006
         },
         "avg_invested": 0.9970178926441352,
-        "turnover": 139.2
+        "turnover": 140.8
       },
       "AI top 10 (idle cash in SPUS)": {
         "metrics": {
-          "total_return": 1.9925658965632764,
-          "cagr": 0.3159746785617761,
-          "annualized_volatility": 0.3834452046259575,
-          "sharpe": 0.909108746976546,
-          "sortino": 1.2888527618572991,
-          "max_drawdown": -0.45652018117321,
-          "calmar": 0.6921373722181429,
+          "total_return": 1.7805808081929024,
+          "cagr": 0.291976527539505,
+          "annualized_volatility": 0.3841193998636314,
+          "sharpe": 0.860287378868537,
+          "sortino": 1.2143186808351252,
+          "max_drawdown": -0.4604965790201887,
+          "calmar": 0.6340471153135415,
           "win_rate": 0.5174129353233831,
-          "profit_factor": 1.1754670024955212,
-          "average_trade_return": 0.0013833071012367836,
+          "profit_factor": 1.1651949773118204,
+          "average_trade_return": 0.0013113217130207894,
           "n_periods": 1006
         },
         "avg_invested": 0.9970178926441352,
-        "turnover": 139.2
+        "turnover": 140.8
+      },
+      "AI top 10, costs \u00d77 (20 bps per side)": {
+        "metrics": {
+          "total_return": 1.196503132530978,
+          "cagr": 0.21787524682191717,
+          "annualized_volatility": 0.3841813551071517,
+          "sharpe": 0.7062398348907339,
+          "sortino": 0.9965693803498706,
+          "max_drawdown": -0.4630279922685948,
+          "calmar": 0.4705444389105775,
+          "win_rate": 0.5114427860696518,
+          "profit_factor": 1.1337454328349357,
+          "average_trade_return": 0.0010766832412657669,
+          "n_periods": 1006
+        },
+        "avg_invested": 0.9970178926441352,
+        "turnover": 140.8
+      },
+      "Simple rule: top 10 by 6-month gain": {
+        "metrics": {
+          "total_return": 1.6757984462728457,
+          "cagr": 0.27960462548581266,
+          "annualized_volatility": 0.2641015779877838,
+          "sharpe": 1.0670844382812101,
+          "sortino": 1.4939169856346717,
+          "max_drawdown": -0.2042822036777835,
+          "calmar": 1.368717492037809,
+          "win_rate": 0.46766169154228854,
+          "profit_factor": 1.2049132849920148,
+          "average_trade_return": 0.001118328111096331,
+          "n_periods": 1006
+        },
+        "avg_invested": 0.8767395626242545,
+        "turnover": 77.80000000000001
+      },
+      "Simple rule: top 10 most volatile": {
+        "metrics": {
+          "total_return": 3.245180212681901,
+          "cagr": 0.43643542957315873,
+          "annualized_volatility": 0.42512477775120655,
+          "sharpe": 1.06373416521803,
+          "sortino": 1.7466093131247322,
+          "max_drawdown": -0.45718542841884113,
+          "calmar": 0.954613604118037,
+          "win_rate": 0.4925373134328358,
+          "profit_factor": 1.2011031723423462,
+          "average_trade_return": 0.0017945228197407948,
+          "n_periods": 1006
+        },
+        "avg_invested": 0.9443339960238568,
+        "turnover": 48.0
       },
       "Equal-weight all Shariah stocks": {
         "metrics": {
-          "total_return": 1.1511036627964373,
-          "cagr": 0.21152023888187355,
-          "annualized_volatility": 0.2488264394684616,
-          "sharpe": 0.8971203703426981,
-          "sortino": 1.1486989091466977,
-          "max_drawdown": -0.3579441651647495,
-          "calmar": 0.5909308195721475,
+          "total_return": 1.1511036926954823,
+          "cagr": 0.21152024310009332,
+          "annualized_volatility": 0.24882644421314445,
+          "sharpe": 0.8971203716907776,
+          "sortino": 1.148698967274864,
+          "max_drawdown": -0.35794418328037725,
+          "calmar": 0.590930801449593,
           "win_rate": 0.5303482587064676,
-          "profit_factor": 1.1805407404047645,
-          "average_trade_return": 0.0008858224901865127,
+          "profit_factor": 1.180540730189259,
+          "average_trade_return": 0.0008858225084086932,
           "n_periods": 1006
         },
         "avg_invested": 0.9970178926441352,
@@ -54,68 +105,119 @@
       },
       "Buy & hold SPUS": {
         "metrics": {
-          "cagr": 0.1493347107416001,
-          "max_drawdown": -0.30801463467798273,
-          "sharpe": 0.7234891113002355,
-          "total_return": 0.7430360014944053,
-          "annualized_volatility": 0.2289322257301894,
-          "sortino": 0.9606852958062833,
-          "calmar": 0.48482992016831833,
+          "cagr": 0.149334641061323,
+          "max_drawdown": -0.30801463088351533,
+          "sharpe": 0.7234894711479337,
+          "total_return": 0.7430355796356127,
+          "annualized_volatility": 0.22893193261981934,
+          "sortino": 0.960686227014096,
+          "calmar": 0.4848296999170738,
           "win_rate": 0.5303482587064676,
-          "profit_factor": 1.1386366856587764,
-          "average_trade_return": 0.0006572617957996811,
+          "profit_factor": 1.1386366723591739,
+          "average_trade_return": 0.0006572612811904265,
           "n_periods": 1006
         }
       },
-      "rank_ic_mean": 0.01579825919288515
+      "rank_ic_mean": 0.016426017067409322
     },
     "2024\u2013latest": {
       "AI top 10 (idle cash)": {
         "metrics": {
-          "total_return": 1.8808018299259417,
-          "cagr": 0.4542422552550227,
-          "annualized_volatility": 0.3001023037441381,
-          "sharpe": 1.3999633852408169,
-          "sortino": 1.8696941482234155,
-          "max_drawdown": -0.4131826550935841,
-          "calmar": 1.0993739685228046,
-          "win_rate": 0.5513361462728551,
-          "profit_factor": 1.2940429775554265,
-          "average_trade_return": 0.001667191416937347,
+          "total_return": 2.201104693025508,
+          "cagr": 0.5095311928612778,
+          "annualized_volatility": 0.3078871938833041,
+          "sharpe": 1.4939132729656033,
+          "sortino": 1.996055959283495,
+          "max_drawdown": -0.3755305365464634,
+          "calmar": 1.3568302528660938,
+          "win_rate": 0.5555555555555556,
+          "profit_factor": 1.3169125465851712,
+          "average_trade_return": 0.0018252252599936587,
           "n_periods": 712
         },
         "avg_invested": 1.0,
-        "turnover": 99.39999999999999
+        "turnover": 101.39999999999999
       },
       "AI top 10 (idle cash in SPUS)": {
         "metrics": {
-          "total_return": 1.8808018299259417,
-          "cagr": 0.4542422552550227,
-          "annualized_volatility": 0.3001023037441381,
-          "sharpe": 1.3999633852408169,
-          "sortino": 1.8696941482234155,
-          "max_drawdown": -0.4131826550935841,
-          "calmar": 1.0993739685228046,
-          "win_rate": 0.5513361462728551,
-          "profit_factor": 1.2940429775554265,
-          "average_trade_return": 0.001667191416937347,
+          "total_return": 2.201104693025508,
+          "cagr": 0.5095311928612778,
+          "annualized_volatility": 0.3078871938833041,
+          "sharpe": 1.4939132729656033,
+          "sortino": 1.996055959283495,
+          "max_drawdown": -0.3755305365464634,
+          "calmar": 1.3568302528660938,
+          "win_rate": 0.5555555555555556,
+          "profit_factor": 1.3169125465851712,
+          "average_trade_return": 0.0018252252599936587,
           "n_periods": 712
         },
         "avg_invested": 1.0,
-        "turnover": 99.39999999999999
+        "turnover": 101.39999999999999
+      },
+      "AI top 10, costs \u00d77 (20 bps per side)": {
+        "metrics": {
+          "total_return": 1.696771784094162,
+          "cagr": 0.42065884491091166,
+          "annualized_volatility": 0.30785955842399465,
+          "sharpe": 1.2963738120036428,
+          "sortino": 1.7359955585348708,
+          "max_drawdown": -0.3813368713961406,
+          "calmar": 1.1031161066875241,
+          "win_rate": 0.5457102672292545,
+          "profit_factor": 1.270392324950501,
+          "average_trade_return": 0.0015837344020471116,
+          "n_periods": 712
+        },
+        "avg_invested": 1.0,
+        "turnover": 101.39999999999999
+      },
+      "Simple rule: top 10 by 6-month gain": {
+        "metrics": {
+          "total_return": 3.9334291796433813,
+          "cagr": 0.7592517058994219,
+          "annualized_volatility": 0.4563100835945775,
+          "sharpe": 1.4700120202237719,
+          "sortino": 1.9194473348446706,
+          "max_drawdown": -0.38437981093148843,
+          "calmar": 1.9752642680672694,
+          "win_rate": 0.569620253164557,
+          "profit_factor": 1.297998227197486,
+          "average_trade_return": 0.00266183058664025,
+          "n_periods": 712
+        },
+        "avg_invested": 1.0,
+        "turnover": 53.0
+      },
+      "Simple rule: top 10 most volatile": {
+        "metrics": {
+          "total_return": 4.489951737905286,
+          "cagr": 0.8270793108844297,
+          "annualized_volatility": 0.49008321937020005,
+          "sharpe": 1.478631483493327,
+          "sortino": 1.9410505358741017,
+          "max_drawdown": -0.43453869727375727,
+          "calmar": 1.9033501873905,
+          "win_rate": 0.5850914205344585,
+          "profit_factor": 1.296206937049028,
+          "average_trade_return": 0.0028756050702085094,
+          "n_periods": 712
+        },
+        "avg_invested": 1.0,
+        "turnover": 32.0
       },
       "Equal-weight all Shariah stocks": {
         "metrics": {
-          "total_return": 0.7699307499573365,
-          "cagr": 0.2239390888572872,
-          "annualized_volatility": 0.16561506559268757,
-          "sharpe": 1.3047285581606078,
-          "sortino": 1.8642845094440263,
-          "max_drawdown": -0.21363404548124865,
-          "calmar": 1.0482368966651574,
+          "total_return": 0.7699307464093119,
+          "cagr": 0.22393908798890538,
+          "annualized_volatility": 0.16561506945920743,
+          "sharpe": 1.3047285273413012,
+          "sortino": 1.8642844471960138,
+          "max_drawdown": -0.21363404209666725,
+          "calmar": 1.048236909207453,
           "win_rate": 0.5555555555555556,
-          "profit_factor": 1.259059005372524,
-          "average_trade_return": 0.000857471054525483,
+          "profit_factor": 1.2590589969612709,
+          "average_trade_return": 0.0008574710542898373,
           "n_periods": 712
         },
         "avg_invested": 1.0,
@@ -123,68 +225,119 @@
       },
       "Buy & hold SPUS": {
         "metrics": {
-          "cagr": 0.21571270846819757,
+          "cagr": 0.2157126589921743,
           "max_drawdown": -0.22824799910489124,
-          "sharpe": 1.16507680317978,
-          "total_return": 0.7365253018830955,
-          "annualized_volatility": 0.18210453756155195,
-          "sortino": 1.601295944860183,
-          "calmar": 0.9450803920040802,
+          "sharpe": 1.1650766300615476,
+          "total_return": 0.7365251022077799,
+          "annualized_volatility": 0.1821045268754446,
+          "sortino": 1.6012961204459464,
+          "calmar": 0.9450801752397561,
           "win_rate": 0.5541490857946554,
-          "profit_factor": 1.2330340963718343,
-          "average_trade_return": 0.0008419276685188299,
+          "profit_factor": 1.2330342116043629,
+          "average_trade_return": 0.0008419274940118869,
           "n_periods": 712
         }
       },
-      "rank_ic_mean": 0.04941404056355878
+      "rank_ic_mean": 0.04905659107416042
     },
     "Whole period": {
       "AI top 10 (idle cash)": {
         "metrics": {
-          "total_return": 7.501517173702794,
-          "cagr": 0.3688018124482788,
-          "annualized_volatility": 0.3511934349658422,
-          "sharpe": 1.0705925908467975,
-          "sortino": 1.4761091837454003,
-          "max_drawdown": -0.45652018117321,
-          "calmar": 0.8078543461112628,
-          "win_rate": 0.5305765870704717,
-          "profit_factor": 1.2140934941113632,
-          "average_trade_return": 0.0014920043231288385,
+          "total_return": 7.781665752938158,
+          "cagr": 0.37532686137453575,
+          "annualized_volatility": 0.35441044728731547,
+          "sharpe": 1.077635848853502,
+          "sortino": 1.48207083809941,
+          "max_drawdown": -0.4604965790201888,
+          "calmar": 0.8150480991045124,
+          "win_rate": 0.5323238206173558,
+          "profit_factor": 1.2153540303646322,
+          "average_trade_return": 0.0015155769968452997,
           "n_periods": 1718
         },
         "avg_invested": 0.9982537834691502,
-        "turnover": 238.6
+        "turnover": 242.2
       },
       "AI top 10 (idle cash in SPUS)": {
         "metrics": {
-          "total_return": 7.471206160118506,
-          "cagr": 0.3680848711849931,
-          "annualized_volatility": 0.35120515099699395,
-          "sharpe": 1.0690737887276625,
-          "sortino": 1.4745582505534294,
-          "max_drawdown": -0.45652018117321,
-          "calmar": 0.8062838979846472,
-          "win_rate": 0.5311589982527665,
-          "profit_factor": 1.2136899057590553,
-          "average_trade_return": 0.001489937386496139,
+          "total_return": 7.750361125491246,
+          "cagr": 0.37460662270659983,
+          "annualized_volatility": 0.3544220904343932,
+          "sharpe": 1.0761310671462077,
+          "sortino": 1.4805448127682106,
+          "max_drawdown": -0.4604965790201887,
+          "calmar": 0.8134840512901544,
+          "win_rate": 0.5329062317996506,
+          "profit_factor": 1.214953809536792,
+          "average_trade_return": 0.0015135104063466397,
           "n_periods": 1718
         },
         "avg_invested": 0.9982537834691502,
-        "turnover": 238.6
+        "turnover": 242.2
+      },
+      "AI top 10, costs \u00d77 (20 bps per side)": {
+        "metrics": {
+          "total_return": 4.819237660576391,
+          "cagr": 0.2947688209372241,
+          "annualized_volatility": 0.35445426204211455,
+          "sharpe": 0.9070149201843047,
+          "sortino": 1.2484980886183155,
+          "max_drawdown": -0.4630279922685948,
+          "calmar": 0.6366112327097357,
+          "win_rate": 0.5253348864298194,
+          "profit_factor": 1.17848837648403,
+          "average_trade_return": 0.0012757750166472821,
+          "n_periods": 1718
+        },
+        "avg_invested": 0.9982537834691502,
+        "turnover": 242.2
+      },
+      "Simple rule: top 10 by 6-month gain": {
+        "metrics": {
+          "total_return": 11.900866448354233,
+          "cagr": 0.4551508184754003,
+          "annualized_volatility": 0.3566427739645885,
+          "sharpe": 1.2320070529545613,
+          "sortino": 1.5974738035390383,
+          "max_drawdown": -0.38437981093148843,
+          "calmar": 1.1841173899649116,
+          "win_rate": 0.5096097845078625,
+          "profit_factor": 1.252456613360864,
+          "average_trade_return": 0.0017435968766256046,
+          "n_periods": 1718
+        },
+        "avg_invested": 0.9278230500582072,
+        "turnover": 130.8
+      },
+      "Simple rule: top 10 most volatile": {
+        "metrics": {
+          "total_return": 22.046164351317564,
+          "cagr": 0.5844150274688515,
+          "annualized_volatility": 0.4530077339288622,
+          "sharpe": 1.2431001081223776,
+          "sortino": 1.8170622243018222,
+          "max_drawdown": -0.45718542841884113,
+          "calmar": 1.2782888323672723,
+          "win_rate": 0.5305765870704717,
+          "profit_factor": 1.2415944741790232,
+          "average_trade_return": 0.0022346585834414354,
+          "n_periods": 1718
+        },
+        "avg_invested": 0.9674039580908033,
+        "turnover": 80.0
       },
       "Equal-weight all Shariah stocks": {
         "metrics": {
-          "total_return": 2.773867281035049,
-          "cagr": 0.21507846589515567,
-          "annualized_volatility": 0.2181453302191173,
-          "sharpe": 1.0032291955354227,
-          "sortino": 1.2967352162158003,
-          "max_drawdown": -0.3579441651647495,
-          "calmar": 0.6008715515621337,
+          "total_return": 2.7738673431951537,
+          "cagr": 0.21507846883082293,
+          "annualized_volatility": 0.21814533457087268,
+          "sharpe": 1.0032291907824893,
+          "sortino": 1.296735253903085,
+          "max_drawdown": -0.35794418328037725,
+          "calmar": 0.6008715293533691,
           "win_rate": 0.5404775771694816,
-          "profit_factor": 1.2044554904204425,
-          "average_trade_return": 0.0008684514450219609,
+          "profit_factor": 1.2044554808683123,
+          "average_trade_return": 0.0008684514582321903,
           "n_periods": 1718
         },
         "avg_invested": 0.9982537834691502,
@@ -192,20 +345,20 @@
       },
       "Buy & hold SPUS": {
         "metrics": {
-          "cagr": 0.17446615645294417,
-          "max_drawdown": -0.30801463467798273,
-          "sharpe": 0.8692251005896733,
-          "total_return": 1.9931941131526507,
-          "annualized_volatility": 0.21073130413639546,
-          "sortino": 1.1577967300148801,
-          "calmar": 0.5664216462810012,
+          "cagr": 0.17446617352496752,
+          "max_drawdown": -0.30801463088351533,
+          "sharpe": 0.86922576762996,
+          "total_return": 1.993194409773729,
+          "annualized_volatility": 0.2107311103044688,
+          "sortino": 1.157798114031632,
+          "calmar": 0.5664217086848286,
           "win_rate": 0.539895165987187,
-          "profit_factor": 1.1699300367101602,
-          "average_trade_return": 0.0007268767422037752,
+          "profit_factor": 1.1699301386925052,
+          "average_trade_return": 0.0007268766314203002,
           "n_periods": 1718
         }
       },
-      "rank_ic_mean": 0.029486240882416963
+      "rank_ic_mean": 0.029712833000623818
     }
   },
   "fit_log": [
@@ -214,7 +367,7 @@
       "horizon": "1D",
       "n_train": 154506,
       "n_val": 50078,
-      "val_accuracy": 0.4474020527976357,
+      "val_accuracy": 0.446483485762211,
       "max_train_label_date": "2018-12-31"
     },
     {
@@ -222,7 +375,7 @@
       "horizon": "1W",
       "n_train": 153711,
       "n_val": 49276,
-      "val_accuracy": 0.45052358145953403,
+      "val_accuracy": 0.45009741050409935,
       "max_train_label_date": "2018-12-31"
     },
     {
@@ -230,7 +383,7 @@
       "horizon": "2W",
       "n_train": 152718,
       "n_val": 48272,
-      "val_accuracy": 0.4488109048723898,
+      "val_accuracy": 0.44818942658269806,
       "max_train_label_date": "2018-12-31"
     },
     {
@@ -238,7 +391,7 @@
       "horizon": "1M",
       "n_train": 150532,
       "n_val": 46067,
-      "val_accuracy": 0.4587231640870905,
+      "val_accuracy": 0.4572904682310548,
       "max_train_label_date": "2018-12-31"
     },
     {
@@ -246,7 +399,7 @@
       "horizon": "2M",
       "n_train": 146364,
       "n_val": 41861,
-      "val_accuracy": 0.47519170588375814,
+      "val_accuracy": 0.47342395069396337,
       "max_train_label_date": "2018-12-31"
     },
     {
@@ -254,7 +407,7 @@
       "horizon": "3M",
       "n_train": 142197,
       "n_val": 37650,
-      "val_accuracy": 0.47181938911022575,
+      "val_accuracy": 0.4750597609561753,
       "max_train_label_date": "2018-12-31"
     },
     {
@@ -262,7 +415,7 @@
       "horizon": "6M",
       "n_train": 129705,
       "n_val": 25019,
-      "val_accuracy": 0.5022582837043846,
+      "val_accuracy": 0.5018585874735201,
       "max_train_label_date": "2018-12-31"
     },
     {
@@ -270,7 +423,7 @@
       "horizon": "1D",
       "n_train": 204783,
       "n_val": 50884,
-      "val_accuracy": 0.4173217514346356,
+      "val_accuracy": 0.4165356497130729,
       "max_train_label_date": "2019-12-31"
     },
     {
@@ -278,7 +431,7 @@
       "horizon": "1W",
       "n_train": 203981,
       "n_val": 50076,
-      "val_accuracy": 0.42946720984104164,
+      "val_accuracy": 0.4425672977074846,
       "max_train_label_date": "2019-12-31"
     },
     {
@@ -286,7 +439,7 @@
       "horizon": "2W",
       "n_train": 202977,
       "n_val": 49064,
-      "val_accuracy": 0.4490461438121637,
+      "val_accuracy": 0.45086010109245067,
       "max_train_label_date": "2019-12-31"
     },
     {
@@ -294,7 +447,7 @@
       "horizon": "1M",
       "n_train": 200772,
       "n_val": 46839,
-      "val_accuracy": 0.4450991694955059,
+      "val_accuracy": 0.44552616409402424,
       "max_train_label_date": "2019-12-31"
     },
     {
@@ -302,7 +455,7 @@
       "horizon": "2M",
       "n_train": 196566,
       "n_val": 42586,
-      "val_accuracy": 0.42119475884093366,
+      "val_accuracy": 0.42164091485464705,
       "max_train_label_date": "2019-12-31"
     },
     {
@@ -310,7 +463,7 @@
       "horizon": "3M",
       "n_train": 192355,
       "n_val": 38337,
-      "val_accuracy": 0.44100999034874927,
+      "val_accuracy": 0.44661814956830215,
       "max_train_label_date": "2019-12-31"
     },
     {
@@ -326,7 +479,7 @@
       "horizon": "1D",
       "n_train": 255867,
       "n_val": 51437,
-      "val_accuracy": 0.43692283764605244,
+      "val_accuracy": 0.435970215992379,
       "max_train_label_date": "2020-12-31"
     },
     {
@@ -334,7 +487,7 @@
       "horizon": "1W",
       "n_train": 255059,
       "n_val": 50613,
-      "val_accuracy": 0.42898069665896116,
+      "val_accuracy": 0.4294746409025349,
       "max_train_label_date": "2020-12-31"
     },
     {
@@ -342,7 +495,7 @@
       "horizon": "2W",
       "n_train": 254047,
       "n_val": 49583,
-      "val_accuracy": 0.43621805860879737,
+      "val_accuracy": 0.43660125446221487,
       "max_train_label_date": "2020-12-31"
     },
     {
@@ -350,7 +503,7 @@
       "horizon": "1M",
       "n_train": 251822,
       "n_val": 47317,
-      "val_accuracy": 0.4518460595557622,
+      "val_accuracy": 0.4496058499059535,
       "max_train_label_date": "2020-12-31"
     },
     {
@@ -358,7 +511,7 @@
       "horizon": "2M",
       "n_train": 247569,
       "n_val": 42991,
-      "val_accuracy": 0.47944918703914774,
+      "val_accuracy": 0.4789374520248424,
       "max_train_label_date": "2020-12-31"
     },
     {
@@ -382,7 +535,7 @@
       "horizon": "1D",
       "n_train": 307506,
       "n_val": 51520,
-      "val_accuracy": 0.40535714285714286,
+      "val_accuracy": 0.40559006211180126,
       "max_train_label_date": "2021-12-31"
     },
     {
@@ -390,7 +543,7 @@
       "horizon": "1W",
       "n_train": 306682,
       "n_val": 50692,
-      "val_accuracy": 0.3896867355795786,
+      "val_accuracy": 0.39118598595439125,
       "max_train_label_date": "2021-12-31"
     },
     {
@@ -398,7 +551,7 @@
       "horizon": "2W",
       "n_train": 305652,
       "n_val": 49657,
-      "val_accuracy": 0.3863503634935659,
+      "val_accuracy": 0.38600801498278187,
       "max_train_label_date": "2021-12-31"
     },
     {
@@ -406,7 +559,7 @@
       "horizon": "1M",
       "n_train": 303386,
       "n_val": 47380,
-      "val_accuracy": 0.3884972562262558,
+      "val_accuracy": 0.38908822287885186,
       "max_train_label_date": "2021-12-31"
     },
     {
@@ -414,7 +567,7 @@
       "horizon": "2M",
       "n_train": 299060,
       "n_val": 43054,
-      "val_accuracy": 0.30097087378640774,
+      "val_accuracy": 0.30101732707762346,
       "max_train_label_date": "2021-12-31"
     },
     {
@@ -430,7 +583,7 @@
       "horizon": "6M",
       "n_train": 281833,
       "n_val": 25750,
-      "val_accuracy": 0.18877669902912622,
+      "val_accuracy": 0.1861359223300971,
       "max_train_label_date": "2021-12-31"
     },
     {
@@ -438,7 +591,7 @@
       "horizon": "1D",
       "n_train": 359232,
       "n_val": 51584,
-      "val_accuracy": 0.44176488833746896,
+      "val_accuracy": 0.44422689205955335,
       "max_train_label_date": "2022-12-30"
     },
     {
@@ -446,7 +599,7 @@
       "horizon": "1W",
       "n_train": 358404,
       "n_val": 50752,
-      "val_accuracy": 0.41637767969735184,
+      "val_accuracy": 0.4166141235813367,
       "max_train_label_date": "2022-12-30"
     },
     {
@@ -454,7 +607,7 @@
       "horizon": "2W",
       "n_train": 357369,
       "n_val": 49712,
-      "val_accuracy": 0.412918410041841,
+      "val_accuracy": 0.4135218860637271,
       "max_train_label_date": "2022-12-30"
     },
     {
@@ -462,7 +615,7 @@
       "horizon": "1M",
       "n_train": 355092,
       "n_val": 47424,
-      "val_accuracy": 0.3962761470985155,
+      "val_accuracy": 0.39655026990553305,
       "max_train_label_date": "2022-12-30"
     },
     {
@@ -470,7 +623,7 @@
       "horizon": "2M",
       "n_train": 350766,
       "n_val": 43056,
-      "val_accuracy": 0.4135776662950576,
+      "val_accuracy": 0.41724730583426234,
       "max_train_label_date": "2022-12-30"
     },
     {
@@ -478,7 +631,7 @@
       "horizon": "3M",
       "n_train": 346440,
       "n_val": 38709,
-      "val_accuracy": 0.4296158516107365,
+      "val_accuracy": 0.4270324730682787,
       "max_train_label_date": "2022-12-30"
     },
     {
@@ -494,7 +647,7 @@
       "horizon": "1D",
       "n_train": 411023,
       "n_val": 52301,
-      "val_accuracy": 0.44618649739010724,
+      "val_accuracy": 0.44589969599051643,
       "max_train_label_date": "2023-12-29"
     },
     {
@@ -502,7 +655,7 @@
       "horizon": "1W",
       "n_train": 410191,
       "n_val": 51465,
-      "val_accuracy": 0.43095307490527546,
+      "val_accuracy": 0.4305255999222773,
       "max_train_label_date": "2023-12-29"
     },
     {
@@ -510,7 +663,7 @@
       "horizon": "2W",
       "n_train": 409151,
       "n_val": 50420,
-      "val_accuracy": 0.4282427608092027,
+      "val_accuracy": 0.4290757635858786,
       "max_train_label_date": "2023-12-29"
     },
     {
@@ -518,7 +671,7 @@
       "horizon": "1M",
       "n_train": 406863,
       "n_val": 48121,
-      "val_accuracy": 0.44826582988715946,
+      "val_accuracy": 0.44949190582074355,
       "max_train_label_date": "2023-12-29"
     },
     {
@@ -526,7 +679,7 @@
       "horizon": "2M",
       "n_train": 402495,
       "n_val": 43732,
-      "val_accuracy": 0.46570017378578615,
+      "val_accuracy": 0.46624897100521356,
       "max_train_label_date": "2023-12-29"
     },
     {
@@ -534,7 +687,7 @@
       "horizon": "3M",
       "n_train": 398148,
       "n_val": 39343,
-      "val_accuracy": 0.45314287166713263,
+      "val_accuracy": 0.45250743461352716,
       "max_train_label_date": "2023-12-29"
     },
     {
@@ -542,7 +695,7 @@
       "horizon": "6M",
       "n_train": 385107,
       "n_val": 26208,
-      "val_accuracy": 0.49198717948717946,
+      "val_accuracy": 0.4896978021978022,
       "max_train_label_date": "2023-12-29"
     },
     {
@@ -550,7 +703,7 @@
       "horizon": "1D",
       "n_train": 463532,
       "n_val": 52493,
-      "val_accuracy": 0.4650334330291658,
+      "val_accuracy": 0.46478578096127104,
       "max_train_label_date": "2024-12-31"
     },
     {
@@ -558,7 +711,7 @@
       "horizon": "1W",
       "n_train": 462696,
       "n_val": 51647,
-      "val_accuracy": 0.44174879470249967,
+      "val_accuracy": 0.4424845586384495,
       "max_train_label_date": "2024-12-31"
     },
     {
@@ -566,7 +719,7 @@
       "horizon": "2W",
       "n_train": 461651,
       "n_val": 50592,
-      "val_accuracy": 0.43544433902593294,
+      "val_accuracy": 0.4351280834914611,
       "max_train_label_date": "2024-12-31"
     },
     {
@@ -574,7 +727,7 @@
       "horizon": "1M",
       "n_train": 459352,
       "n_val": 48271,
-      "val_accuracy": 0.4182221209421806,
+      "val_accuracy": 0.42006587806343354,
       "max_train_label_date": "2024-12-31"
     },
     {
@@ -582,7 +735,7 @@
       "horizon": "2M",
       "n_train": 454963,
       "n_val": 43840,
-      "val_accuracy": 0.4092609489051095,
+      "val_accuracy": 0.40980839416058396,
       "max_train_label_date": "2024-12-31"
     },
     {
@@ -590,7 +743,7 @@
       "horizon": "3M",
       "n_train": 450574,
       "n_val": 39409,
-      "val_accuracy": 0.42863305336344487,
+      "val_accuracy": 0.42901367707883986,
       "max_train_label_date": "2024-12-31"
     },
     {
@@ -598,7 +751,7 @@
       "horizon": "6M",
       "n_train": 437439,
       "n_val": 26116,
-      "val_accuracy": 0.4794378924797059,
+      "val_accuracy": 0.48012712513401745,
       "max_train_label_date": "2024-12-31"
     }
   ],
