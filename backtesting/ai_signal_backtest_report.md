@@ -1,50 +1,52 @@
 # AI signal backtest (walk-forward, XGBoost)
 
-212 Shariah (SPUS) stocks, 2020-01-02 → 2026-11-02. The model is retrained every January on purged past data only, scores combine the 7 horizons with the repo's weights, and the portfolio holds the **top 10 stocks scoring ≥ +0.10** (the BUY threshold), rebalanced weekly, traded one day after the signal, 3 bps per side. Nothing was tuned on these results.
+295 Shariah (SPUS) stocks, 2020-01-02 → 2026-11-02. Universe: **point-in-time SPUS holdings (SEC N-PORT, quarterly)**. The model is retrained every January on purged past data only, scores combine the 7 horizons with the repo's weights, and the portfolio holds the **top 10 stocks scoring ≥ +0.10** (the BUY threshold), rebalanced weekly, traded one day after the signal, 3 bps per side. Nothing was tuned on these results.
 
-**Read with care:** today's Shariah list applied to the past (survivorship bias); XGBoost only (no LightGBM/LSTM/Transformer); no conservative-HOLD overrides; no sector/macro/fundamental features. Not financial advice.
+Stocks are picked, ranked and trained on only for dates they were in the Shariah index. XGBoost only (no LightGBM/LSTM/Transformer); no conservative-HOLD overrides; no sector/macro/fundamental features. Not financial advice.
+
+Price data found for **94.8%** of index members across 26 quarterly snapshots (lowest 90%). Members with no price data (delisted or renamed), the bias that remains: ABMD, ALXN, ANSS, ATVI, AVB, CERN, CTLT, CTRA, CTXS, CXO, DAY, DRE, EQR, FDXF, HES, HOLX, JNPR, K, KLG, KSU, KVUE, MXIM, PKI, PXD, Q, QRVO, TIF, TWTR, VAR, WBA.
 
 ## 2020–2023 (2020-01-01 → 2023-12-31)
 
 | Portfolio | CAGR | Max drawdown | Sharpe | Avg invested |
 |---|---|---|---|---|
-| AI top 10 (idle cash) | 29.3% | -46.0% | 0.86 | 100% |
-| AI top 10 (idle cash in SPUS) | 29.2% | -46.0% | 0.86 | 100% |
-| AI top 10, costs ×7 (20 bps per side) | 21.8% | -46.3% | 0.71 | 100% |
-| Simple rule: top 10 by 6-month gain | 28.0% | -20.4% | 1.07 | 88% |
-| Simple rule: top 10 most volatile | 43.6% | -45.7% | 1.06 | 94% |
-| Equal-weight all Shariah stocks | 21.2% | -35.8% | 0.90 | 100% |
+| AI top 10 (idle cash) | 8.3% | -43.3% | 0.41 | 100% |
+| AI top 10 (idle cash in SPUS) | 8.2% | -43.3% | 0.41 | 100% |
+| AI top 10, costs ×7 (20 bps per side) | 1.8% | -43.8% | 0.21 | 100% |
+| Simple rule: top 10 by 6-month gain | 5.1% | -34.3% | 0.33 | 88% |
+| Simple rule: top 10 most volatile | 35.2% | -38.8% | 0.98 | 94% |
+| Equal-weight all Shariah stocks | 14.0% | -34.1% | 0.67 | 100% |
 | Buy & hold SPUS | 14.9% | -30.8% | 0.72 | 100% |
 
-Signal quality: average rank IC (score vs next-21-session return) **+0.016** (positive on 49% of days); top-minus-bottom decile 21-session return **+1.03%**.
+Signal quality: average rank IC (score vs next-21-session return) **+0.007** (positive on 49% of days); top-minus-bottom decile 21-session return **+0.55%**.
 
 ## 2024–latest (2024-01-01 → 2026-11-02)
 
 | Portfolio | CAGR | Max drawdown | Sharpe | Avg invested |
 |---|---|---|---|---|
-| AI top 10 (idle cash) | 51.0% | -37.6% | 1.49 | 100% |
-| AI top 10 (idle cash in SPUS) | 51.0% | -37.6% | 1.49 | 100% |
-| AI top 10, costs ×7 (20 bps per side) | 42.1% | -38.1% | 1.30 | 100% |
-| Simple rule: top 10 by 6-month gain | 75.9% | -38.4% | 1.47 | 100% |
-| Simple rule: top 10 most volatile | 82.7% | -43.5% | 1.48 | 100% |
-| Equal-weight all Shariah stocks | 22.4% | -21.4% | 1.30 | 100% |
+| AI top 10 (idle cash) | 26.7% | -24.8% | 1.08 | 100% |
+| AI top 10 (idle cash in SPUS) | 26.7% | -24.8% | 1.08 | 100% |
+| AI top 10, costs ×7 (20 bps per side) | 17.8% | -25.7% | 0.78 | 100% |
+| Simple rule: top 10 by 6-month gain | 39.7% | -35.7% | 1.07 | 100% |
+| Simple rule: top 10 most volatile | 32.8% | -36.6% | 0.88 | 100% |
+| Equal-weight all Shariah stocks | 14.8% | -20.1% | 0.96 | 100% |
 | Buy & hold SPUS | 21.6% | -22.8% | 1.17 | 100% |
 
-Signal quality: average rank IC (score vs next-21-session return) **+0.049** (positive on 64% of days); top-minus-bottom decile 21-session return **+2.77%**.
+Signal quality: average rank IC (score vs next-21-session return) **+0.020** (positive on 56% of days); top-minus-bottom decile 21-session return **+0.66%**.
 
 ## Whole period (2020-01-01 → 2026-11-02)
 
 | Portfolio | CAGR | Max drawdown | Sharpe | Avg invested |
 |---|---|---|---|---|
-| AI top 10 (idle cash) | 37.5% | -46.0% | 1.08 | 100% |
-| AI top 10 (idle cash in SPUS) | 37.5% | -46.0% | 1.08 | 100% |
-| AI top 10, costs ×7 (20 bps per side) | 29.5% | -46.3% | 0.91 | 100% |
-| Simple rule: top 10 by 6-month gain | 45.5% | -38.4% | 1.23 | 93% |
-| Simple rule: top 10 most volatile | 58.4% | -45.7% | 1.24 | 97% |
-| Equal-weight all Shariah stocks | 21.5% | -35.8% | 1.00 | 100% |
+| AI top 10 (idle cash) | 15.4% | -43.3% | 0.64 | 100% |
+| AI top 10 (idle cash in SPUS) | 15.3% | -43.3% | 0.64 | 100% |
+| AI top 10, costs ×7 (20 bps per side) | 8.0% | -43.8% | 0.41 | 100% |
+| Simple rule: top 10 by 6-month gain | 17.9% | -36.3% | 0.70 | 93% |
+| Simple rule: top 10 most volatile | 34.4% | -38.8% | 0.94 | 97% |
+| Equal-weight all Shariah stocks | 14.2% | -34.1% | 0.74 | 100% |
 | Buy & hold SPUS | 17.4% | -30.8% | 0.87 | 100% |
 
-Signal quality: average rank IC (score vs next-21-session return) **+0.030** (positive on 55% of days); top-minus-bottom decile 21-session return **+1.63%**.
+Signal quality: average rank IC (score vs next-21-session return) **+0.012** (positive on 52% of days); top-minus-bottom decile 21-session return **+0.60%**.
 
 Weeks with at least one stock above the BUY threshold: 100%. Average holdings when invested: 10.0 stocks.
 
@@ -52,7 +54,7 @@ Purging check: every model's latest training label date is before the year it tr
 
 ## What the model actually held
 
-Average 60-day daily volatility of its picks: **3.14%** vs **2.22%** for the universe (1.4× as volatile). Share of its picks that were also in the 6-month-gain top 10: **6%**.
+Average 60-day daily volatility of its picks: **2.62%** vs **2.10%** for the universe (1.2× as volatile). Share of its picks that were also in the 6-month-gain top 10: **4%**.
 
-Most often held (% of weeks): BE 65%, VRT 42%, COHR 39%, AOS 37%, P 35%, FLEX 33%, HAL 30%, MRVL 28%, LITE 27%, TWLO 26%
+Most often held (% of weeks): CTVA 69%, NVDA 30%, ENPH 23%, GNRC 23%, ROL 22%, AOS 20%, ON 20%, SMCI 18%, TSLA 16%, TTD 16%
 
