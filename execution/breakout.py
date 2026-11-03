@@ -153,9 +153,12 @@ def manage(pos: dict, df: pd.DataFrame, qty: int, cfg: dict,
         actions.append(("sell", q, f"earnings in ~{days_to_earnings} days: reducing risk"))
         pos["earnings_cut"] = True
         remaining -= q
-    if not pos.get("partial") and r >= cfg["partial_r"] and remaining >= 2:
-        q = max(1, math.floor(remaining * cfg["partial_fraction"]))
-        actions.append(("sell", q, f"+{r:.1f}R: partial profit, stop to break-even"))
+    # At +partial_r: optionally sell a slice, and in every case move the stop to
+    # break-even and start trailing. partial_fraction 0 = keep the full position.
+    if not pos.get("partial") and r >= cfg["partial_r"]:
+        if cfg["partial_fraction"] > 0 and remaining >= 2:
+            q = max(1, math.floor(remaining * cfg["partial_fraction"]))
+            actions.append(("sell", q, f"+{r:.1f}R: partial profit, stop to break-even"))
         pos["partial"] = True
         pos["stop"] = max(pos["stop"], round(entry, 2))
     if pos.get("partial"):

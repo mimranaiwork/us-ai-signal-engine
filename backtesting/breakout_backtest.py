@@ -68,7 +68,12 @@ def prepare(frames: dict[str, pd.DataFrame], cfg: dict) -> dict[str, pd.DataFram
 
 def run(frames: dict[str, pd.DataFrame], universe: list[str], cfg: dict, start, end,
         initial_capital: float = 100_000.0, benchmark: str = "SPUS", fallback_benchmark: str = "SPY",
-        use_market_filter: bool = True, costs: TransactionCostModel | None = None) -> dict:
+        use_market_filter: bool = True, costs: TransactionCostModel | None = None,
+        idle_cash_in: str | None = None) -> dict:
+    """idle_cash_in: if set (e.g. "SPUS"), cash not used by open trades is held
+    in that ETF: it earns the ETF's close-to-close return, and each trade pays
+    one extra side of costs for selling/buying the ETF to fund it. Approximates
+    a core (ETF) + satellite (breakouts) portfolio."""
     costs = costs or TransactionCostModel(commission_per_share=0.0, commission_minimum=0.0)
     side_cost = costs.entry_or_exit_cost_pct()
     data = prepare(frames, cfg)
@@ -101,7 +106,7 @@ def run(frames: dict[str, pd.DataFrame], universe: list[str], cfg: dict, start, 
         nonlocal cash
         tr = open_trades[sym]
         fill = px * (1 - side_cost)
-        cash += qty * fill
+        cash += qty * fill * ((1 - side_cost) if idle_cash_in else 1)   # proceeds go back into the ETF
         tr.exits.append((d, qty, fill, reason))
         state_pos = state.get(sym)
         if tr.closed:
@@ -136,7 +141,7 @@ def run(frames: dict[str, pd.DataFrame], universe: list[str], cfg: dict, start, 
             stop = min(info["stop"], round(fill * 0.99, 2))
             if stop >= fill:
                 continue
-            cash -= q * fill
+            cash -= q * fill * ((1 + side_cost) if idle_cash_in else 1)   # sell ETF to fund the buy
             open_trades[sym] = Trade(sym, d, fill, q, fill - stop)
             state[sym] = {"entry": fill, "stop": stop, "risk": round(fill - stop, 4),
                           "breakout_level": info["breakout_level"], "date": str(d.date()),
@@ -154,7 +159,12 @@ def run(frames: dict[str, pd.DataFrame], universe: list[str], cfg: dict, start, 
                 remaining = open_trades[sym].qty - sum(q for _, q, _, _ in open_trades[sym].exits)
                 sell(sym, remaining, px, d, "stop hit" if px == stop else "stop (gap down)")
 
-        # ── close: mark to market, manage, scan ──
+        # ── close: idle cash earns the ETF's return, mark to market, manage, scan ──
+        if idle_cash_in and idle_cash_in in pos_lookup:
+            ii = pos_lookup[idle_cash_in].get(d)
+            if ii is not None and ii > 0 and cash > 0 and d != calendar[0]:   # no return before day one
+                c = data[idle_cash_in]["close"]
+                cash *= float(c.iloc[ii]) / float(c.iloc[ii - 1])
         mtm = 0.0
         for sym, t in open_trades.items():
             hist = data[sym].loc[:d]

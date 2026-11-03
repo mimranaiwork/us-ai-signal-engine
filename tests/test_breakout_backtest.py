@@ -117,3 +117,24 @@ def test_equity_accounts_for_every_dollar():
     entry_costs = sum(t.qty * t.entry_px * (1 - 1 / 1.0003) for t in res["trades"])
     assert abs(res["equity"]["equity"].iloc[-1] - (50_000 + pnl)) < entry_costs + 1.0
     assert not trades_frame(res["trades"]).empty
+
+
+def test_idle_cash_in_etf_tracks_the_etf_when_no_trades():
+    flat = frame([50.0] * 300)                       # never breaks out
+    etf = frame(list(np.linspace(40, 60, 300)))
+    idx = flat.index
+    res = run({"AAA": flat, "SPUS": etf}, ["AAA"], CFG, idx[230], idx[-1], idle_cash_in="SPUS")
+    eq = res["equity"]["equity"]
+    etf_ret = etf["close"].iloc[-1] / etf["close"].loc[idx[230]]
+    assert res["summary"]["trades"] == 0
+    assert abs(eq.iloc[-1] / 100_000 - etf_ret) < 1e-9
+    res_cash = run({"AAA": flat, "SPUS": etf}, ["AAA"], CFG, idx[230], idx[-1])
+    assert res_cash["equity"]["equity"].iloc[-1] == 100_000
+
+
+def test_cfg_overrides_change_behaviour():
+    df = breakout_then(list(np.linspace(107, 140, 25)))
+    no_partial = {**CFG, "partial_fraction": 0.0}
+    frames = {"AAA": df, "SPUS": bench(len(df))}
+    res = run(frames, ["AAA"], no_partial, df.index[230], df.index[-1])
+    assert not any("partial" in e[3] for e in res["trades"][0].exits)

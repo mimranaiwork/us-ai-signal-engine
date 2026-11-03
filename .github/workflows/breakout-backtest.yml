@@ -14,6 +14,7 @@ on:
     paths:
       - "backtesting/breakout_backtest.py"
       - "scripts/run_breakout_backtest.py"
+      - "scripts/run_breakout_variants.py"
       - "execution/breakout.py"
       - ".github/workflows/breakout-backtest.yml"
 
@@ -46,10 +47,13 @@ jobs:
       - name: Run backtest
         run: python scripts/run_breakout_backtest.py --start "${{ github.event.inputs.start || '2019-01-01' }}"
 
+      - name: Run variant study (select 2020-2023, test 2024+)
+        run: python scripts/run_breakout_variants.py
+
       - name: Save report
         if: success()
         run: |
           git config user.name "trading-bot"
           git config user.email "trading-bot@users.noreply.github.com"
-          git add backtesting/breakout_backtest_report.md backtesting/breakout_backtest_report.json backtesting/breakout_backtest_trades.csv
+          git add backtesting/breakout_backtest_report.md backtesting/breakout_backtest_report.json backtesting/breakout_backtest_trades.csv backtesting/breakout_variants_report.md backtesting/breakout_variants_report.json
           git diff --cached --quiet || (git commit -m "backtest report $(date -u +%F)" && git push)

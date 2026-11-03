@@ -254,3 +254,10 @@ def test_dry_run_places_no_orders_and_saves_no_state(tmp_path):
               days_to_earnings=lambda s, d: None, state_dir=str(tmp_path))
     assert fb.pos == {} and not (tmp_path / "state.json").exists()
     assert any("would BUY" in a for a in out["acted"])
+
+
+def test_partial_fraction_zero_keeps_position_but_still_trails():
+    df = enriched(UP + BASE + [105.5, 110, 117])
+    cfg = {**CFG, "partial_fraction": 0.0}
+    actions, p = breakout.manage(_pos(df), df, 18, cfg)
+    assert actions == [] and p["partial"] and p["stop"] >= 105.5
