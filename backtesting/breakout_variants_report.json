@@ -1,0 +1,565 @@
+{
+  "chosen": "F. Baseline + idle cash in SPUS",
+  "selection_period": [
+    "2020-01-01",
+    "2023-12-31"
+  ],
+  "test_start": "2024-01-01",
+  "end": "2026-11-02",
+  "selection": {
+    "A. Baseline (live bot today)": {
+      "metrics": {
+        "total_return": 0.12881789180487813,
+        "cagr": 0.03081831466936391,
+        "annualized_volatility": 0.0984739214670609,
+        "sharpe": 0.35791107324776933,
+        "sortino": 0.39793840602748565,
+        "max_drawdown": -0.1260968581752765,
+        "calmar": 0.24440192337326913,
+        "win_rate": 0.4117647058823529,
+        "profit_factor": 1.2089595963592534,
+        "average_trade_return": 0.005221109281160696,
+        "n_periods": 1006
+      },
+      "summary": {
+        "trades": 153,
+        "win_rate": 0.4117647058823529,
+        "avg_win_r": 1.5330815627989667,
+        "avg_loss_r": -0.8655720449856478,
+        "expectancy_r": 0.12210885233742871,
+        "avg_hold_sessions": 17.718954248366014,
+        "time_in_market": 0.7137176938369781,
+        "avg_positions": 2.6998011928429424,
+        "market_filter_on_pct": 0.6500994035785288,
+        "exit_reasons": {
+          "stop hit": 78,
+          "time stop": 46,
+          "stop (gap down)": 15,
+          "failed breakout": 9,
+          "open at end of test": 5
+        }
+      }
+    },
+    "B. No time stop": {
+      "metrics": {
+        "total_return": 0.12914596272400192,
+        "cagr": 0.030893352667848983,
+        "annualized_volatility": 0.10530371902557577,
+        "sharpe": 0.341967293304974,
+        "sortino": 0.4118226748030895,
+        "max_drawdown": -0.13777460260435004,
+        "calmar": 0.22423111432639015,
+        "win_rate": 0.36585365853658536,
+        "profit_factor": 1.2242968890916839,
+        "average_trade_return": 0.007031294448205836,
+        "n_periods": 1006
+      },
+      "summary": {
+        "trades": 123,
+        "win_rate": 0.36585365853658536,
+        "avg_win_r": 2.1822489617722196,
+        "avg_loss_r": -0.9983754406043502,
+        "expectancy_r": 0.16526763343585835,
+        "avg_hold_sessions": 24.723577235772357,
+        "time_in_market": 0.8190854870775348,
+        "avg_positions": 3.0278330019880717,
+        "market_filter_on_pct": 0.6500994035785288,
+        "exit_reasons": {
+          "stop hit": 98,
+          "stop (gap down)": 14,
+          "failed breakout": 6,
+          "open at end of test": 5
+        }
+      }
+    },
+    "C. Let winners run": {
+      "metrics": {
+        "total_return": 0.05144168083060019,
+        "cagr": 0.012644772015545591,
+        "annualized_volatility": 0.12838031226255736,
+        "sharpe": 0.16224511005165052,
+        "sortino": 0.2003479783061726,
+        "max_drawdown": -0.21953474792402095,
+        "calmar": 0.05759804374987524,
+        "win_rate": 0.33043478260869563,
+        "profit_factor": 1.144920110971339,
+        "average_trade_return": 0.0046776822610299805,
+        "n_periods": 1006
+      },
+      "summary": {
+        "trades": 115,
+        "win_rate": 0.33043478260869563,
+        "avg_win_r": 2.3010055800182148,
+        "avg_loss_r": -0.976659257794289,
+        "expectancy_r": 0.10639521035245135,
+        "avg_hold_sessions": 27.895652173913042,
+        "time_in_market": 0.8190854870775348,
+        "avg_positions": 3.1938369781312126,
+        "market_filter_on_pct": 0.6500994035785288,
+        "exit_reasons": {
+          "stop hit": 87,
+          "stop (gap down)": 17,
+          "failed breakout": 6,
+          "open at end of test": 5
+        }
+      }
+    },
+    "D. Bigger positions": {
+      "metrics": {
+        "total_return": 0.10378704025728691,
+        "cagr": 0.025044305745451245,
+        "annualized_volatility": 0.12155870395595804,
+        "sharpe": 0.26497040426766694,
+        "sortino": 0.26915483557930586,
+        "max_drawdown": -0.1788115090184902,
+        "calmar": 0.14005980869420162,
+        "win_rate": 0.4263565891472868,
+        "profit_factor": 1.134150733208141,
+        "average_trade_return": 0.0031714198435048497,
+        "n_periods": 1006
+      },
+      "summary": {
+        "trades": 129,
+        "win_rate": 0.4263565891472868,
+        "avg_win_r": 1.3616893705293693,
+        "avg_loss_r": -0.8564286692711864,
+        "expectancy_r": 0.08928057250424434,
+        "avg_hold_sessions": 17.25581395348837,
+        "time_in_market": 0.705765407554672,
+        "avg_positions": 2.216699801192843,
+        "market_filter_on_pct": 0.6500994035785288,
+        "exit_reasons": {
+          "stop hit": 64,
+          "time stop": 41,
+          "stop (gap down)": 12,
+          "failed breakout": 8,
+          "open at end of test": 4
+        }
+      }
+    },
+    "E. Let winners run + bigger positions": {
+      "metrics": {
+        "total_return": 0.1327765553782212,
+        "cagr": 0.031722670678643095,
+        "annualized_volatility": 0.14205938650794694,
+        "sharpe": 0.2911189793449415,
+        "sortino": 0.37845875718384897,
+        "max_drawdown": -0.22547445115426457,
+        "calmar": 0.14069297215824755,
+        "win_rate": 0.3626373626373626,
+        "profit_factor": 1.416453450884776,
+        "average_trade_return": 0.01223495587389635,
+        "n_periods": 1006
+      },
+      "summary": {
+        "trades": 91,
+        "win_rate": 0.3626373626373626,
+        "avg_win_r": 2.2663328713297717,
+        "avg_loss_r": -0.9597160247446904,
+        "expectancy_r": 0.21016983866692757,
+        "avg_hold_sessions": 28.76923076923077,
+        "time_in_market": 0.7972166998011928,
+        "avg_positions": 2.606361829025845,
+        "market_filter_on_pct": 0.6500994035785288,
+        "exit_reasons": {
+          "stop hit": 72,
+          "stop (gap down)": 10,
+          "failed breakout": 5,
+          "open at end of test": 4
+        }
+      }
+    },
+    "F. Baseline + idle cash in SPUS": {
+      "metrics": {
+        "total_return": 0.334247900375088,
+        "cagr": 0.0749082021516867,
+        "annualized_volatility": 0.22881005955568287,
+        "sharpe": 0.43083001084854516,
+        "sortino": 0.563778262323545,
+        "max_drawdown": -0.3080148130683379,
+        "calmar": 0.24319675214797914,
+        "win_rate": 0.4117647058823529,
+        "profit_factor": 1.209298435453812,
+        "average_trade_return": 0.005229575587433507,
+        "n_periods": 1006
+      },
+      "summary": {
+        "trades": 153,
+        "win_rate": 0.4117647058823529,
+        "avg_win_r": 1.5335809481531697,
+        "avg_loss_r": -0.8655720449856478,
+        "expectancy_r": 0.12231448160092408,
+        "avg_hold_sessions": 17.718954248366014,
+        "time_in_market": 0.7137176938369781,
+        "avg_positions": 2.6998011928429424,
+        "market_filter_on_pct": 0.6500994035785288,
+        "exit_reasons": {
+          "stop hit": 78,
+          "time stop": 46,
+          "stop (gap down)": 15,
+          "failed breakout": 9,
+          "open at end of test": 5
+        }
+      }
+    },
+    "G. E + idle cash in SPUS": {
+      "metrics": {
+        "total_return": 0.2905991920306852,
+        "cagr": 0.06598946468959399,
+        "annualized_volatility": 0.23629006138883388,
+        "sharpe": 0.38915672624578307,
+        "sortino": 0.5302062350543871,
+        "max_drawdown": -0.3080148130683379,
+        "calmar": 0.2142412049350146,
+        "win_rate": 0.3626373626373626,
+        "profit_factor": 1.416453450884776,
+        "average_trade_return": 0.012234955873896353,
+        "n_periods": 1006
+      },
+      "summary": {
+        "trades": 91,
+        "win_rate": 0.3626373626373626,
+        "avg_win_r": 2.2663328713297712,
+        "avg_loss_r": -0.9597160247446904,
+        "expectancy_r": 0.2101698386669275,
+        "avg_hold_sessions": 28.76923076923077,
+        "time_in_market": 0.7972166998011928,
+        "avg_positions": 2.606361829025845,
+        "market_filter_on_pct": 0.6500994035785288,
+        "exit_reasons": {
+          "stop hit": 72,
+          "stop (gap down)": 10,
+          "failed breakout": 5,
+          "open at end of test": 4
+        }
+      }
+    }
+  },
+  "test": {
+    "A. Baseline (live bot today)": {
+      "metrics": {
+        "total_return": 0.23267565526217338,
+        "cagr": 0.07684787971115292,
+        "annualized_volatility": 0.10456219595368461,
+        "sharpe": 0.7613562202855114,
+        "sortino": 1.050991226228589,
+        "max_drawdown": -0.10030956697795779,
+        "calmar": 0.7661071822594909,
+        "win_rate": 0.4846153846153846,
+        "profit_factor": 1.4430096941267632,
+        "average_trade_return": 0.00916387614717687,
+        "n_periods": 712
+      },
+      "summary": {
+        "trades": 130,
+        "win_rate": 0.4846153846153846,
+        "avg_win_r": 1.325137662550584,
+        "avg_loss_r": -0.8780481308120028,
+        "expectancy_r": 0.18964959981755847,
+        "avg_hold_sessions": 17.16923076923077,
+        "time_in_market": 0.8735955056179775,
+        "avg_positions": 3.1418539325842696,
+        "market_filter_on_pct": 0.776685393258427,
+        "exit_reasons": {
+          "stop hit": 65,
+          "time stop": 45,
+          "stop (gap down)": 11,
+          "open at end of test": 5,
+          "failed breakout": 4
+        }
+      },
+      "benchmark": {
+        "total_return": 0.7365257012338646,
+        "cagr": 0.215712807420267,
+        "annualized_volatility": 0.1821044827189432,
+        "sharpe": 1.1650775459678102,
+        "sortino": 1.6012996663873056,
+        "max_drawdown": -0.22824804610017269,
+        "calmar": 0.9450806309447912,
+        "win_rate": 0.5541490857946554,
+        "profit_factor": 1.2330340227714167,
+        "average_trade_return": 0.0008419279517298564,
+        "n_periods": 712,
+        "symbol": "SPUS"
+      }
+    },
+    "B. No time stop": {
+      "metrics": {
+        "total_return": 0.26588951096904534,
+        "cagr": 0.08702920061045694,
+        "annualized_volatility": 0.11214385845979469,
+        "sharpe": 0.801246363670757,
+        "sortino": 1.134067271327281,
+        "max_drawdown": -0.12141469034711505,
+        "calmar": 0.7167930038914344,
+        "win_rate": 0.4117647058823529,
+        "profit_factor": 1.5210827884032576,
+        "average_trade_return": 0.015290689327486255,
+        "n_periods": 712
+      },
+      "summary": {
+        "trades": 85,
+        "win_rate": 0.4117647058823529,
+        "avg_win_r": 2.1233811514033305,
+        "avg_loss_r": -1.0300131454737296,
+        "expectancy_r": 0.26844332971094226,
+        "avg_hold_sessions": 30.91764705882353,
+        "time_in_market": 0.9241573033707865,
+        "avg_positions": 3.6980337078651684,
+        "market_filter_on_pct": 0.776685393258427,
+        "exit_reasons": {
+          "stop hit": 66,
+          "stop (gap down)": 9,
+          "failed breakout": 5,
+          "open at end of test": 5
+        }
+      },
+      "benchmark": {
+        "total_return": 0.7365257012338646,
+        "cagr": 0.215712807420267,
+        "annualized_volatility": 0.1821044827189432,
+        "sharpe": 1.1650775459678102,
+        "sortino": 1.6012996663873056,
+        "max_drawdown": -0.22824804610017269,
+        "calmar": 0.9450806309447912,
+        "win_rate": 0.5541490857946554,
+        "profit_factor": 1.2330340227714167,
+        "average_trade_return": 0.0008419279517298564,
+        "n_periods": 712,
+        "symbol": "SPUS"
+      }
+    },
+    "C. Let winners run": {
+      "metrics": {
+        "total_return": 0.22185076247204005,
+        "cagr": 0.07349138560910706,
+        "annualized_volatility": 0.14831066982988808,
+        "sharpe": 0.552978941180396,
+        "sortino": 0.7802746401972017,
+        "max_drawdown": -0.1866975231937006,
+        "calmar": 0.3936387818753171,
+        "win_rate": 0.4146341463414634,
+        "profit_factor": 1.5714302395176525,
+        "average_trade_return": 0.016936310865854225,
+        "n_periods": 712
+      },
+      "summary": {
+        "trades": 82,
+        "win_rate": 0.4146341463414634,
+        "avg_win_r": 2.3221224670690357,
+        "avg_loss_r": -1.063990479888268,
+        "expectancy_r": 0.3400075712891507,
+        "avg_hold_sessions": 32.46341463414634,
+        "time_in_market": 0.9367977528089888,
+        "avg_positions": 3.74438202247191,
+        "market_filter_on_pct": 0.776685393258427,
+        "exit_reasons": {
+          "stop hit": 60,
+          "stop (gap down)": 14,
+          "failed breakout": 4,
+          "open at end of test": 4
+        }
+      },
+      "benchmark": {
+        "total_return": 0.7365257012338646,
+        "cagr": 0.215712807420267,
+        "annualized_volatility": 0.1821044827189432,
+        "sharpe": 1.1650775459678102,
+        "sortino": 1.6012996663873056,
+        "max_drawdown": -0.22824804610017269,
+        "calmar": 0.9450806309447912,
+        "win_rate": 0.5541490857946554,
+        "profit_factor": 1.2330340227714167,
+        "average_trade_return": 0.0008419279517298564,
+        "n_periods": 712,
+        "symbol": "SPUS"
+      }
+    },
+    "D. Bigger positions": {
+      "metrics": {
+        "total_return": 0.09255906890389065,
+        "cagr": 0.03182705741667524,
+        "annualized_volatility": 0.12191756052776846,
+        "sharpe": 0.3183056858055573,
+        "sortino": 0.42337824616656783,
+        "max_drawdown": -0.16894152925547956,
+        "calmar": 0.1883909631748698,
+        "win_rate": 0.4636363636363636,
+        "profit_factor": 1.2389964249624095,
+        "average_trade_return": 0.0050648635912162185,
+        "n_periods": 712
+      },
+      "summary": {
+        "trades": 110,
+        "win_rate": 0.4636363636363636,
+        "avg_win_r": 1.2270783919519714,
+        "avg_loss_r": -0.8663042703886263,
+        "expectancy_r": 0.1042640548783782,
+        "avg_hold_sessions": 16.572727272727274,
+        "time_in_market": 0.851123595505618,
+        "avg_positions": 2.566011235955056,
+        "market_filter_on_pct": 0.776685393258427,
+        "exit_reasons": {
+          "stop hit": 55,
+          "time stop": 38,
+          "stop (gap down)": 11,
+          "open at end of test": 4,
+          "failed breakout": 2
+        }
+      },
+      "benchmark": {
+        "total_return": 0.7365257012338646,
+        "cagr": 0.215712807420267,
+        "annualized_volatility": 0.1821044827189432,
+        "sharpe": 1.1650775459678102,
+        "sortino": 1.6012996663873056,
+        "max_drawdown": -0.22824804610017269,
+        "calmar": 0.9450806309447912,
+        "win_rate": 0.5541490857946554,
+        "profit_factor": 1.2330340227714167,
+        "average_trade_return": 0.0008419279517298564,
+        "n_periods": 712,
+        "symbol": "SPUS"
+      }
+    },
+    "E. Let winners run + bigger positions": {
+      "metrics": {
+        "total_return": 0.02216496271409185,
+        "cagr": 0.007789406056450954,
+        "annualized_volatility": 0.16148367144488862,
+        "sharpe": 0.12890081559127958,
+        "sortino": 0.17329624330221258,
+        "max_drawdown": -0.267853783079787,
+        "calmar": 0.029080814042976133,
+        "win_rate": 0.38028169014084506,
+        "profit_factor": 1.1940754421715376,
+        "average_trade_return": 0.006208080084259934,
+        "n_periods": 712
+      },
+      "summary": {
+        "trades": 71,
+        "win_rate": 0.38028169014084506,
+        "avg_win_r": 2.052988607524422,
+        "avg_loss_r": -1.0566878885948299,
+        "expectancy_r": 0.12586514514066033,
+        "avg_hold_sessions": 30.08450704225352,
+        "time_in_market": 0.9185393258426966,
+        "avg_positions": 3.0042134831460676,
+        "market_filter_on_pct": 0.776685393258427,
+        "exit_reasons": {
+          "stop hit": 52,
+          "stop (gap down)": 12,
+          "failed breakout": 4,
+          "open at end of test": 3
+        }
+      },
+      "benchmark": {
+        "total_return": 0.7365257012338646,
+        "cagr": 0.215712807420267,
+        "annualized_volatility": 0.1821044827189432,
+        "sharpe": 1.1650775459678102,
+        "sortino": 1.6012996663873056,
+        "max_drawdown": -0.22824804610017269,
+        "calmar": 0.9450806309447912,
+        "win_rate": 0.5541490857946554,
+        "profit_factor": 1.2330340227714167,
+        "average_trade_return": 0.0008419279517298564,
+        "n_periods": 712,
+        "symbol": "SPUS"
+      }
+    },
+    "F. Baseline + idle cash in SPUS": {
+      "metrics": {
+        "total_return": 0.5923839807803701,
+        "cagr": 0.1789931992951701,
+        "annualized_volatility": 0.18308247825015586,
+        "sharpe": 0.9919280551454384,
+        "sortino": 1.4275907520578772,
+        "max_drawdown": -0.24228993372257224,
+        "calmar": 0.7387562353297005,
+        "win_rate": 0.4846153846153846,
+        "profit_factor": 1.442837287640827,
+        "average_trade_return": 0.009160309833154774,
+        "n_periods": 712
+      },
+      "summary": {
+        "trades": 130,
+        "win_rate": 0.4846153846153846,
+        "avg_win_r": 1.3247877409436577,
+        "avg_loss_r": -0.8780481308120028,
+        "expectancy_r": 0.1894800224234326,
+        "avg_hold_sessions": 17.16923076923077,
+        "time_in_market": 0.8735955056179775,
+        "avg_positions": 3.1418539325842696,
+        "market_filter_on_pct": 0.776685393258427,
+        "exit_reasons": {
+          "stop hit": 65,
+          "time stop": 45,
+          "stop (gap down)": 11,
+          "open at end of test": 5,
+          "failed breakout": 4
+        }
+      },
+      "benchmark": {
+        "total_return": 0.7365257012338646,
+        "cagr": 0.215712807420267,
+        "annualized_volatility": 0.1821044827189432,
+        "sharpe": 1.1650775459678102,
+        "sortino": 1.6012996663873056,
+        "max_drawdown": -0.22824804610017269,
+        "calmar": 0.9450806309447912,
+        "win_rate": 0.5541490857946554,
+        "profit_factor": 1.2330340227714167,
+        "average_trade_return": 0.0008419279517298564,
+        "n_periods": 712,
+        "symbol": "SPUS"
+      }
+    },
+    "G. E + idle cash in SPUS": {
+      "metrics": {
+        "total_return": 0.28064566614807185,
+        "cagr": 0.0914971799518074,
+        "annualized_volatility": 0.20480746578671424,
+        "sharpe": 0.5301473348088374,
+        "sortino": 0.7522937872646424,
+        "max_drawdown": -0.19608207213931106,
+        "calmar": 0.4666269534667152,
+        "win_rate": 0.38028169014084506,
+        "profit_factor": 1.1940754421715376,
+        "average_trade_return": 0.006208080084259933,
+        "n_periods": 712
+      },
+      "summary": {
+        "trades": 71,
+        "win_rate": 0.38028169014084506,
+        "avg_win_r": 2.052988607524422,
+        "avg_loss_r": -1.0566878885948296,
+        "expectancy_r": 0.12586514514066036,
+        "avg_hold_sessions": 30.08450704225352,
+        "time_in_market": 0.9185393258426966,
+        "avg_positions": 3.0042134831460676,
+        "market_filter_on_pct": 0.776685393258427,
+        "exit_reasons": {
+          "stop hit": 52,
+          "stop (gap down)": 12,
+          "failed breakout": 4,
+          "open at end of test": 3
+        }
+      },
+      "benchmark": {
+        "total_return": 0.7365257012338646,
+        "cagr": 0.215712807420267,
+        "annualized_volatility": 0.1821044827189432,
+        "sharpe": 1.1650775459678102,
+        "sortino": 1.6012996663873056,
+        "max_drawdown": -0.22824804610017269,
+        "calmar": 0.9450806309447912,
+        "win_rate": 0.5541490857946554,
+        "profit_factor": 1.2330340227714167,
+        "average_trade_return": 0.0008419279517298564,
+        "n_periods": 712,
+        "symbol": "SPUS"
+      }
+    }
+  }
+}
