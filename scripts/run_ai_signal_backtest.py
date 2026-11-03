@@ -109,6 +109,11 @@ def main():
     t0 = time.time()
     F, L = build_frames(bars, universe, label_method)
     feat_cols = [c for c in feature_columns(F) if c not in {"symbol"}]
+    # Real data can produce ±inf (e.g. a ratio over a zero-volume day); XGBoost
+    # rejects those. Treat them as missing, like warm-up NaNs, and say how many.
+    inf_mask = np.isinf(F[feat_cols].to_numpy(dtype=float)).any(axis=1)
+    print(f"rows with infinite feature values dropped: {int(inf_mask.sum()):,} of {len(F):,}")
+    F = F[~inf_mask]
     F = F.dropna(subset=feat_cols).reset_index(drop=True)
     key = pd.MultiIndex.from_arrays([F["date"], F["symbol"]])
     for h in HORIZON_SESSIONS:   # align each horizon's label + label-known date to the feature rows
