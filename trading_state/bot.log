@@ -8,3 +8,6 @@ Watchlist: TECH, APD, GWW, PTC, STLD, BDX, WSM, VRSN, FAST, MMM
 Market filter off (SPUS below 50-day avg): no new buys
 Watchlist: TECH, TXN, EW, MDT, WELL, PTC, AVY, BDX, CTAS, ITW
 2026-11-05 21:15:43,790 INFO Market closed. Run during market hours, or use --dry-run.
+2026-11-06 20:38:47,721 INFO [PAPER] Shariah scan: 1 breakouts, 10 near, 0 open.
+Market filter off (SPUS below 50-day avg): no new buys
+Watchlist: TECH, PTC, PG, CL, WELL, CHD, FAST, CTAS, MDLZ, AAPL
